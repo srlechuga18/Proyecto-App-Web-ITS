@@ -5,7 +5,8 @@ CREATE TABLE Category (
 );
 
 CREATE TABLE Usr (
-    Id int,
+    Id VARCHAR(20),
+    Pass VARCHAR(20),
     Nombre VARCHAR(20),
     ApellidoPaterno VARCHAR(20),
     ApellidoMaterno VARCHAR(20),
@@ -54,3 +55,7 @@ CREATE TABLE Horario (
     CONSTRAINT FK_Grupo FOREIGN KEY (Grupo) REFERENCES Grupo(Id),
     CONSTRAINT FK_Salon FOREIGN KEY (Salon) REFERENCES Salon(Id)
 );
+
+CREATE DATABASE instituto_x;
+
+INSERT INTO Category(Id,Nombre) VALUES (001,"Admin"),(002,"Profesor"),(003,"Prefecto");
