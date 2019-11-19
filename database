@@ -1,3 +1,5 @@
+CREATE DATABASE instituto_x;
+
 CREATE TABLE Category (
     Id int,
     Nombre VARCHAR(20),
@@ -45,7 +47,7 @@ CREATE TABLE Horario (
     DiaDeLaSemana int ,
     Hora date ,
     CicloEscolar VARCHAR(20) ,
-    Profesor int ,
+    Profesor VARCHAR(20) ,
     Curso int ,
     Grupo int ,
     Salon int ,
@@ -55,7 +57,5 @@ CREATE TABLE Horario (
     CONSTRAINT FK_Grupo FOREIGN KEY (Grupo) REFERENCES Grupo(Id),
     CONSTRAINT FK_Salon FOREIGN KEY (Salon) REFERENCES Salon(Id)
 );
-
-CREATE DATABASE instituto_x;
 
 INSERT INTO Category(Id,Nombre) VALUES (001,"Admin"),(002,"Profesor"),(003,"Prefecto");
