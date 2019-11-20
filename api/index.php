@@ -1,6 +1,7 @@
 <?php 
 if (isset($_GET["url"])) {
     $item = $_GET["url"];
+    //$number = intval(preg_replace('/[^0-9]+/','',$item),10);
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             switch ($item) {
