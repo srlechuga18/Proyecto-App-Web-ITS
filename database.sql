@@ -1,13 +1,13 @@
 CREATE DATABASE instituto_x;
 
 CREATE TABLE Category (
-    Id int,
+    Id VARCHAR(5),
     Nombre VARCHAR(20),
     CONSTRAINT PK_Category PRIMARY KEY (Id)
 );
 
 CREATE TABLE Usr (
-    Id VARCHAR(20),
+    Id VARCHAR(5),
     Pass VARCHAR(20),
     Nombre VARCHAR(20),
     ApellidoPaterno VARCHAR(20),
@@ -20,7 +20,7 @@ CREATE TABLE Usr (
 );
 
 CREATE TABLE Curso (
-    Id int ,
+    Id VARCHAR(5) ,
     Nombre VARCHAR(20) ,
     Semestre int ,
     Descripcion VARCHAR(150) ,
@@ -28,14 +28,14 @@ CREATE TABLE Curso (
 );
 
 CREATE TABLE Grupo (
-    Id int ,
+    Id VARCHAR(5) ,
     Semestre int ,
     Nombre VARCHAR(20) ,
     CONSTRAINT PK_Grupo PRIMARY KEY (Id)
 );
 
 CREATE TABLE Salon (
-    Id int ,
+    Id VARCHAR(5) ,
     Nombre VARCHAR(20) ,
     Edificio VARCHAR(20) ,
     Ubicacion VARCHAR(150) ,
@@ -43,14 +43,14 @@ CREATE TABLE Salon (
 );
 
 CREATE TABLE Horario (
-    Id int ,
+    Id VARCHAR(5) ,
     DiaDeLaSemana int ,
     Hora date ,
     CicloEscolar VARCHAR(20) ,
-    Profesor VARCHAR(20) ,
-    Curso int ,
-    Grupo int ,
-    Salon int ,
+    Profesor VARCHAR(5) ,
+    Curso VARCHAR(5) ,
+    Grupo VARCHAR(5) ,
+    Salon VARCHAR(5) ,
     CONSTRAINT PK_Horario PRIMARY KEY (Id),
     CONSTRAINT FK_Usr FOREIGN KEY (Profesor) REFERENCES Usr(Id),
     CONSTRAINT FK_Curso FOREIGN KEY (Curso) REFERENCES Curso(Id),
