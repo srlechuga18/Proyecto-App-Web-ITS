@@ -1,7 +1,7 @@
 <?php
 class Curso{
     private $conn;
-    private $table_name = "Curso";
+    private $table_name = "curso";
 
     public $id;
     public $semestre;

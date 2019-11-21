@@ -1,7 +1,7 @@
 <?php
 class Horario{
     private $conn;
-    private $table_name = "Horario";
+    private $table_name = "horario";
 
     public $id;
     public $diaDeLaSemana;

@@ -1,7 +1,7 @@
 <?php
 class Salon{
     private $conn;
-    private $table_name = "Salon";
+    private $table_name = "salon";
 
     public $id;
     public $nombre;

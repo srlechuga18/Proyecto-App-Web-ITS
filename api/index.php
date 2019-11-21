@@ -6,8 +6,7 @@ if (isset($_GET["url"])) {
         case 'GET':
             switch ($item) {
                 case 'usuarios':
-                    http_response_code(200);
-                    print_r("trae usuarios");
+                    include_once('./controladores/usuarios/read.php');
                     break;
                 case 'grupos':
                     http_response_code(200);

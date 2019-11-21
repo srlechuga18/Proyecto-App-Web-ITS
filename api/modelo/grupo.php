@@ -1,7 +1,7 @@
 <?php
 class Grupo{
     private $conn;
-    private $table_name = "Grupo";
+    private $table_name = "grupo";
 
     public $id;
     public $semestre;
