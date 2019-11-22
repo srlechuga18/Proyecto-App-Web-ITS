@@ -27,11 +27,12 @@ if(
 {
     $usuario->pass = $data->pass;
     $usuario->nombre = $data->nombre;
-    $usuario->apellidoPaterno = $data->apellidoPaterno;
-    $usuario->apellidoMaterno = $data->apellidoMaterno;
+    $usuario->aPaterno = $data->apellidoPaterno;
+    $usuario->aMaterno = $data->apellidoMaterno;
     $usuario->turno = $data->turno;
     $usuario->category = $data->category;
     
+    //genera id unico
     switch ($data->category) {
         case 1:
             $x = "AD";
@@ -50,6 +51,42 @@ if(
     }
 
     $usuario->id = $x . $a;
+
+    //guarda la foto base64 y guarga la url 
+
+    $folderPath = "img/";
+
+    $image_parts = explode(";base64,", $data->foto);
+
+    $image_type_aux = explode("image/", $image_parts[0]);
+
+    $image_type = $image_type_aux[1];
+
+    $image_base64 = base64_decode($image_parts[1]);
+
+    $file = __DIR__ . '/../../../api/public/img/' . uniqid() . '.png';
+
+    file_put_contents($file, $image_base64);
+
+    $usuario->foto = $file;
+
+    if($usuario->create()){
+ 
+        // set response code - 201 created
+        http_response_code(201);
+ 
+        // tell the user
+        echo json_encode(array("id" => $usuario->id));
+    }
+    else{
+ 
+        unlink($file);
+        // set response code - 503 service unavailable
+        http_response_code(503);
+ 
+        // tell the user
+        echo json_encode(array("message" => "Unable to create product."));
+    }
     http_response_code(200);
     //que pedo con la foto
 }else{

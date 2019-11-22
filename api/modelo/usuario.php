@@ -29,6 +29,25 @@ class Usuario{
         $stmt->execute();
         return $stmt;
     }
+
+    function create(){
+        $query = "INSERT INTO " . $this->table_name . "(id,pass,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) ". 
+        "VALUES ('". $this->id . "',".
+        "MD5('". $this->pass ."'),".
+        "'". $this->nombre . "',".
+        "'". $this->aPaterno . "',".
+        "'". $this->aMaterno . "',".
+        "'". $this->turno . "',".
+        "'". $this->foto . "',".
+        $this->category .
+        ");";
+        $stmt = $this->conn->prepare($query);
+        if($stmt->execute()){
+            return true;
+        }
+     
+        return false;
+    }
 }
 
 ?>
