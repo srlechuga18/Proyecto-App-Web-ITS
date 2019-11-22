@@ -31,7 +31,7 @@
         }
         http_response_code(200);
         echo json_encode($users_arr);
-    }else {
+    }else{
         http_response_code(404);
  
         echo json_encode(

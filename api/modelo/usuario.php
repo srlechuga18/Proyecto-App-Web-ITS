@@ -22,6 +22,13 @@ class Usuario{
         $stmt->execute();
         return $stmt;
     }
+
+    function countUsersByCategory($num){
+        $query = "SELECT count(*) as num FROM ". $this->table_name ." WHERE category = ". $num ." ;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 
 ?>

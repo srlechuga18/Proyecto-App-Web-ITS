@@ -32,8 +32,7 @@ if (isset($_GET["url"])) {
         case 'POST':
             switch ($item) {
                 case 'usuarios':
-                    http_response_code(200);
-                    print_r("crea usuario");
+                    include_once('./controladores/usuarios/create.php');
                     break;
                 case 'grupos':
                     http_response_code(200);
