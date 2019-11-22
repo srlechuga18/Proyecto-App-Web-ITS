@@ -1,0 +1,6 @@
+            GET                 POST                PATCH               DELETE
+Users       trae usuarios       crea usuario        edita usuario       borra usuario
+Cursos      
+Grupos
+Salones
+Horarios
