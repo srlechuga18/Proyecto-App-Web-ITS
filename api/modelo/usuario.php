@@ -45,8 +45,21 @@ class Usuario{
         if($stmt->execute()){
             return true;
         }
-     
         return false;
+    }
+
+    function readOne(){
+        $query = "SELECT * FROM ".$this->table_name." WHERE id = '".$this->id."';";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->pass = $row['pass'];
+        $this->nombre = $row['nombre'];
+        $this->aPaterno = $row['apellidoPaterno'];
+        $this->aMaterno = $row['apellidoMaterno'];
+        $this->turno = $row['turno'];
+        $this->foto = $row['foto'];
+        $this->category = $row['category'];
     }
 }
 

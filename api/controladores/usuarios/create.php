@@ -64,11 +64,13 @@ if(
 
     $image_base64 = base64_decode($image_parts[1]);
 
-    $file = __DIR__ . '/../../../api/public/img/' . uniqid() . '.png';
+    $name = uniqid() . '.png';
+
+    $file = __DIR__ . '/../../../api/public/img/' . $name;
 
     file_put_contents($file, $image_base64);
 
-    $usuario->foto = $file;
+    $usuario->foto = $name;
 
     if($usuario->create()){
  

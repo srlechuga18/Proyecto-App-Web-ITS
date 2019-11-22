@@ -1,26 +1,29 @@
 <?php 
 if (isset($_GET["url"])) {
     $item = $_GET["url"];
-    //$number = intval(preg_replace('/[^0-9]+/','',$item),10);
+    $number = preg_replace('/.+\//','',$item);
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             switch ($item) {
-                case 'usuarios':
+                case "usuarios":
                     include_once('./controladores/usuarios/read.php');
                     break;
-                case 'grupos':
+                case "usuarios/$number":
+                    include_once('./controladores/usuarios/read_one.php');
+                    break;
+                case "grupos":
                     http_response_code(200);
                     print_r("trae grupos");
                     break;
-                case 'salones':
+                case "salones":
                     http_response_code(200);
                     print_r("trae salones");
                     break;
-                case 'cursos':
+                case "cursos":
                     http_response_code(200);
                     print_r("trae cursos");
                     break;
-                case 'horarios':
+                case "horarios":
                     http_response_code(200);
                     print_r("trae horarios");
                     break;
