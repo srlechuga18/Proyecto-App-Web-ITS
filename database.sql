@@ -7,7 +7,7 @@ CREATE TABLE category (
 );
 
 CREATE TABLE usuario (
-    id VARCHAR(5),
+    id INT NOT NULL AUTO_INCREMENT,
     pass VARCHAR(100),
     nombre VARCHAR(20),
     apellidoPaterno VARCHAR(20),
@@ -20,7 +20,7 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE curso (
-    id VARCHAR(5) ,
+    id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) ,
     semestre int ,
     descripcion VARCHAR(150) ,
@@ -28,14 +28,14 @@ CREATE TABLE curso (
 );
 
 CREATE TABLE grupo (
-    id VARCHAR(5) ,
+    id INT NOT NULL AUTO_INCREMENT,
     semestre int ,
     nombre VARCHAR(20) ,
     CONSTRAINT PK_Grupo PRIMARY KEY (id)
 );
 
 CREATE TABLE salon (
-    id VARCHAR(5) ,
+    id INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) ,
     edificio VARCHAR(20) ,
     ubicacion VARCHAR(150) ,
@@ -43,14 +43,14 @@ CREATE TABLE salon (
 );
 
 CREATE TABLE horario (
-    id VARCHAR(5) ,
+    id INT NOT NULL AUTO_INCREMENT,
     diaDeLaSemana int ,
     hora date ,
     cicloEscolar VARCHAR(20) ,
-    profesor VARCHAR(5) ,
-    curso VARCHAR(5) ,
-    grupo VARCHAR(5) ,
-    salon VARCHAR(5) ,
+    profesor INT ,
+    curso INT ,
+    grupo INT ,
+    salon INT ,
     CONSTRAINT PK_Horario PRIMARY KEY (id),
     CONSTRAINT FK_Usuario FOREIGN KEY (profesor) REFERENCES usuario(id),
     CONSTRAINT FK_Curso FOREIGN KEY (curso) REFERENCES curso(id),
@@ -60,7 +60,9 @@ CREATE TABLE horario (
 
 INSERT INTO category(id,nombre) VALUES (001,"Admin"),(002,"Profesor"),(003,"Prefecto");
 
-INSERT INTO usuario(id,pass,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) VALUES
-('AD001',MD5('12341234'),'Alejandro','De Leon', 'Lopez', 'medio', 'url', 001);
+INSERT INTO usuario(pass,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) VALUES
+(MD5('12341234'),'Alejandro','De Leon', 'Lopez', 'medio', 'url', 001);
 
 select count(*) from <table> where username = @username and password = MD5(@password)
+
+select max(id) from usuario;

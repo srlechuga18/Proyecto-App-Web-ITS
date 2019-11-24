@@ -1,7 +1,7 @@
 <?php 
 if (isset($_GET["url"])) {
     $item = $_GET["url"];
-    $number = preg_replace('/.+\//','',$item);
+    $number = intval(preg_replace('/[^0-9]+/','',$item),10);
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             switch ($item) {
@@ -60,9 +60,8 @@ if (isset($_GET["url"])) {
             break;
         case 'PATCH':
             switch ($item) {
-                case 'usuarios':
-                    http_response_code(200);
-                    print_r("edita usuario");
+                case "usuarios/$number":
+                    include_once('./controladores/usuarios/update.php');
                     break;
                 case 'grupos':
                     http_response_code(200);
@@ -87,9 +86,8 @@ if (isset($_GET["url"])) {
             break;
         case 'DELETE':
             switch ($item) {
-                case 'usuarios':
-                    http_response_code(200);
-                    print_r("borra usuario");
+                case "usuarios/$number":
+                    include_once('./controladores/usuarios/delete.php');
                     break;
                 case 'grupos':
                     http_response_code(200);

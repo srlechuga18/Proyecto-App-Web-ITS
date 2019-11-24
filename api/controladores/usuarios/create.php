@@ -31,27 +31,6 @@ if(
     $usuario->aMaterno = $data->apellidoMaterno;
     $usuario->turno = $data->turno;
     $usuario->category = $data->category;
-    
-    //genera id unico
-    switch ($data->category) {
-        case 1:
-            $x = "AD";
-            break;
-        case 2:
-            $x = "PF";
-            break;
-        case 3:
-            $x = "PR";
-            break;
-    }
-    $stmt = $usuario->countUsersByCategory($data->category);
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-        $a = $num + 1;
-    }
-
-    $usuario->id = $x . $a;
-
     //guarda la foto base64 y guarga la url 
 
     $folderPath = "img/";
@@ -76,7 +55,13 @@ if(
  
         // set response code - 201 created
         http_response_code(201);
- 
+
+            
+        $stmt = $usuario->lastUser();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+            $usuario->id = $id;
+        }
         // tell the user
         echo json_encode(array("id" => $usuario->id));
     }
@@ -87,11 +72,9 @@ if(
         http_response_code(503);
  
         // tell the user
-        echo json_encode(array("message" => "Unable to create product."));
+        echo json_encode(array("message" => "Unable to create user."));
     }
-    http_response_code(200);
-    //que pedo con la foto
 }else{
     http_response_code(400);
-    echo json_encode(array("message" => "Unable to create product. Data is incomplete."));
+    echo json_encode(array("message" => "Unable to create user. Data is incomplete."));
 }

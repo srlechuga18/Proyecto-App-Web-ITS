@@ -1,6 +1,8 @@
-            GET                 POST                PATCH               DELETE
-Users       trae usuarios       crea usuario        edita usuario       borra usuario
+                GET                 POST                PATCH               DELETE
+usuarios        trae usuarios       crea usuario        
+usuarios/$id    trae un usuario                         edita usuario       elimina usuario
 Cursos      
 Grupos
 Salones
 Horarios
+

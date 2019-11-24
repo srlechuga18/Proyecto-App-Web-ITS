@@ -11,8 +11,6 @@
     $usuario->id = $number;
 
     $usuario->readOne();
-
-    echo json_encode($usuario);
     if($usuario->nombre!=null){
         // create array
         $usuario_arr = array(
@@ -30,6 +28,7 @@
         http_response_code(200);
      
         // make it json format
+        echo json_encode($usuario_arr);
     }
      
     else{
