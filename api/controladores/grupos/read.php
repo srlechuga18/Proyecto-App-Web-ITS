@@ -3,30 +3,29 @@
     header("Content-Type: application/json; charset=UTF-8");
 
     include_once __DIR__."/../../config/database.php";
-    include_once __DIR__."/../../modelo/curso.php";
+    include_once __DIR__."/../../modelo/grupo.php";
 
     $database = new Database();
     $db = $database->getConnection();
-    $curso = new Curso($db);
+    $grupo = new Grupo($db);
 
-    $stmt = $curso->read();
+    $stmt = $grupo->read();
     $num = $stmt->rowCount();
     if ($num>0) {
-        $curso_arr=array();
-        $curso_arr["records"]=array();
+        $grupo_arr=array();
+        $grupo_arr["records"]=array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $curso_item=array(
+            $grupo_item=array(
                 "id" => $id,
                 "nombre" => $nombre,
-                "semestre" => $semestre,
-                "descripcion" => $descripcion
+                "semestre" => $semestre
             );
 
-            array_push($curso_arr["records"],$curso_item);
+            array_push($grupo_arr["records"],$grupo_item);
         }
         http_response_code(200);
-        echo json_encode($curso_arr);
+        echo json_encode($grupo_arr);
     }else{
         http_response_code(404);
  
