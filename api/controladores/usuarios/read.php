@@ -25,7 +25,7 @@
                 "apellidoMaterno" => $apellidoMaterno,
                 "turno" => $turno,
                 "foto" => $foto,
-                "category" => $category,
+                "category" => $category
             );
 
             array_push($users_arr["records"],$user_item);
