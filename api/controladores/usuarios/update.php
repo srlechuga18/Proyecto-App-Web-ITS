@@ -35,11 +35,13 @@ if (!empty($data->pass)) {
     }
 } elseif (
     !empty($data->nombre) &&
+    !empty($data->email) &&
     !empty($data->apellidoPaterno) &&
     !empty($data->apellidoMaterno) &&
     !empty($data->turno)
 ) {
     $usuario->nombre = $data->nombre;
+    $usuario->email = $data->email;
     $usuario->aPaterno = $data->apellidoPaterno;
     $usuario->aMaterno = $data->apellidoMaterno;
     $usuario->turno = $data->turno;

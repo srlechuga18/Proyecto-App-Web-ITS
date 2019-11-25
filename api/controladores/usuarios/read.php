@@ -19,6 +19,7 @@
             $user_item=array(
                 "id" => $id,
                 "pass" => $pass,
+                "email" => $email,
                 "nombre" => $nombre,
                 "apellidoPaterno" => $apellidoPaterno,
                 "apellidoMaterno" => $apellidoMaterno,

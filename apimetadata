@@ -1,6 +1,19 @@
                 GET                 POST                PATCH               DELETE
 usuarios        trae usuarios       crea usuario        
 usuarios/$id    trae un usuario                         edita usuario       elimina usuario
+PATCH
+{
+    "foto": "base64"
+}
+{
+    "pass": "newpass"
+}
+{
+    "nombre": "data"
+    "apellidoPaterno": "data"
+    "apellidoMaterno": "data"
+    "turno": "data"
+}
 Cursos      
 Grupos
 Salones

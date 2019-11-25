@@ -5,6 +5,7 @@ class Usuario{
 
     public $id;
     public $pass;
+    public $email;
     public $nombre;
     public $aPaterno;
     public $aMaterno;
@@ -31,9 +32,10 @@ class Usuario{
     }
 
     function create(){
-        $query = "INSERT INTO " . $this->table_name . "(pass,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) ". 
+        $query = "INSERT INTO " . $this->table_name . "(pass,email,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) ". 
         "VALUES (".
         "MD5('". $this->pass ."'),".
+        "'". $this->email . "',".
         "'". $this->nombre . "',".
         "'". $this->aPaterno . "',".
         "'". $this->aMaterno . "',".
@@ -54,6 +56,7 @@ class Usuario{
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->pass = $row['pass'];
+        $this->email = $row['email'];
         $this->nombre = $row['nombre'];
         $this->aPaterno = $row['apellidoPaterno'];
         $this->aMaterno = $row['apellidoMaterno'];
@@ -73,6 +76,7 @@ class Usuario{
 
     function updateData(){
         $query = "UPDATE ".$this->table_name." SET nombre='". $this->nombre . "'," .
+        " email='" . $this->email . "'," .
         " apellidoPaterno='" . $this->aPaterno . "'," .
         " apellidoMaterno='" . $this->aMaterno . "'," .
         " turno='" . $this->turno . "' " .

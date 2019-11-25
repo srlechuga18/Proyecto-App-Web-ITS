@@ -9,12 +9,14 @@ CREATE TABLE category (
 CREATE TABLE usuario (
     id INT NOT NULL AUTO_INCREMENT,
     pass VARCHAR(100),
+    email VARCHAR(50) NOT NULL,
     nombre VARCHAR(20),
     apellidoPaterno VARCHAR(20),
     apellidoMaterno VARCHAR(20),
     turno VARCHAR(20),
     foto VARCHAR(150),
     category VARCHAR(5),
+    CONSTRAINT UC_Email UNIQUE (email),
     CONSTRAINT PK_Usuario PRIMARY KEY (id),
     CONSTRAINT FK_Category FOREIGN KEY (category) REFERENCES category(id)
 );
@@ -60,8 +62,8 @@ CREATE TABLE horario (
 
 INSERT INTO category(id,nombre) VALUES (001,"Admin"),(002,"Profesor"),(003,"Prefecto");
 
-INSERT INTO usuario(pass,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) VALUES
-(MD5('12341234'),'Alejandro','De Leon', 'Lopez', 'medio', 'url', 001);
+INSERT INTO usuario(pass,email,nombre,apellidoPaterno,apellidoMaterno,turno,foto,category) VALUES
+(MD5('12341234'),'aledeleon222@hotmail.com','Alejandro','De Leon', 'Lopez', 'medio', 'url', 001);
 
 select count(*) from <table> where username = @username and password = MD5(@password)
 

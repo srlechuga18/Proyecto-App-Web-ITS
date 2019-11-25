@@ -16,6 +16,7 @@
         $usuario_arr = array(
             "id" =>  $usuario->id,
             "pass" => $usuario->pass,
+            "email" => $usuario->email,
             "nombre" => $usuario->nombre,
             "apellidoPaterno" => $usuario->aPaterno,
             "apellidoMaterno" => $usuario->aMaterno,

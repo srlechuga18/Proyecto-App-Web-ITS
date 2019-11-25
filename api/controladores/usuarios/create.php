@@ -17,6 +17,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 if(   
 !empty($data->pass) &&
+!empty($data->email) &&
 !empty($data->nombre) &&
 !empty($data->apellidoPaterno) &&
 !empty($data->apellidoMaterno) &&
@@ -26,6 +27,7 @@ if(
 )
 {
     $usuario->pass = $data->pass;
+    $usuario->email = $data->email;
     $usuario->nombre = $data->nombre;
     $usuario->aPaterno = $data->apellidoPaterno;
     $usuario->aMaterno = $data->apellidoMaterno;
@@ -57,13 +59,13 @@ if(
         http_response_code(201);
 
             
-        $stmt = $usuario->lastUser();
+        /* $stmt = $usuario->lastUser();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
             $usuario->id = $id;
-        }
+        } */
         // tell the user
-        echo json_encode(array("id" => $usuario->id));
+        echo json_encode(array("message" => "User created."));
     }
     else{
  
