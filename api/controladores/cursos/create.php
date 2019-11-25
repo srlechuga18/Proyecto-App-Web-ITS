@@ -7,25 +7,25 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once __DIR__."/../../config/database.php";
-include_once __DIR__."/../../modelo/salon.php";
+include_once __DIR__."/../../modelo/curso.php";
 
 $database = new Database();
 $db = $database->getConnection();
-$salon = new Salon($db);
+$curso = new Curso($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
 if(   
 !empty($data->nombre) &&
-!empty($data->edificio) &&
-!empty($data->ubicacion) 
+!empty($data->semestre) &&
+!empty($data->descripcion) 
 )
 {
-    $salon->nombre = $data->nombre;
-    $salon->edificio = $data->edificio;
-    $salon->ubicacion = $data->ubicacion;
+    $curso->nombre = $data->nombre;
+    $curso->semestre = $data->semestre;
+    $curso->description = $data->descripcion;
 
-    if($salon->create()){
+    if($curso->create()){
  
         // set response code - 201 created
         http_response_code(201);
