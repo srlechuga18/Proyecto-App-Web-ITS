@@ -17,6 +17,13 @@ class Usuario{
         $this->conn = $db;
     }
 
+    function login(){
+        $query = "SELECT id,category FROM ".$this->table_name." WHERE email = '".$this->email."' AND pass = MD5('" . $this->pass . "');";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function read(){
         $query = "SELECT * FROM ".$this->table_name; 
         $stmt = $this->conn->prepare($query);

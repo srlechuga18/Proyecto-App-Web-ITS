@@ -14,12 +14,13 @@ PATCH
     "apellidoMaterno": "data"
     "turno": "data"
 }
+
 Cursos      
 Grupos
 Salones
 Horarios
 
-agregar horario de un solo maestro
+//agregar horario de un solo maestro
 agregar inicio de sesion
 hacer la pantalla de login
 hacer la pantalla inicial del admin

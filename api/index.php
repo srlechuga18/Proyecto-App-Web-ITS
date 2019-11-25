@@ -11,21 +11,32 @@ if (isset($_GET["url"])) {
                 case "usuarios/$number":
                     include_once('./controladores/usuarios/read_one.php');
                     break;
+                case "usuarios/$number/horario":
+                    include_once('./controladores/horarios/read_byProf.php');
+                    break;
                 case "grupos":
-                    http_response_code(200);
-                    print_r("trae grupos");
+                    include_once('./controladores/grupos/read.php');
+                    break;
+                case "grupos/$number":
+                    include_once('./controladores/grupos/read_one.php');
                     break;
                 case "salones":
-                    http_response_code(200);
-                    print_r("trae salones");
+                    include_once('./controladores/salones/read.php');
+                    break;
+                case "salones/$number":
+                    include_once('./controladores/salones/read_one.php');
                     break;
                 case "cursos":
-                    http_response_code(200);
-                    print_r("trae cursos");
+                    include_once('./controladores/cursos/read.php');
+                    break;
+                case "cursos/$number":
+                    include_once('./controladores/cursos/read_one.php');
                     break;
                 case "horarios":
-                    http_response_code(200);
-                    print_r("trae horarios");
+                    include_once('./controladores/horarios/read.php');
+                    break;
+                case "horarios/$number":
+                    include_once('./controladores/horarios/read_one.php');
                     break;
                 default:
                     http_response_code(400);
@@ -38,20 +49,19 @@ if (isset($_GET["url"])) {
                     include_once('./controladores/usuarios/create.php');
                     break;
                 case 'grupos':
-                    http_response_code(200);
-                    print_r("crea grupo");
+                    include_once('./controladores/grupos/create.php');
                     break;
                 case 'salones':
-                    http_response_code(200);
-                    print_r("crea salon");
+                    include_once('./controladores/salones/create.php');
                     break;
                 case 'cursos':
-                    http_response_code(200);
-                    print_r("crea curso");
+                    include_once('./controladores/cursos/create.php');
                     break;
                 case 'horarios':
-                    http_response_code(200);
-                    print_r("crea horario");
+                    include_once('./controladores/horarios/create.php');
+                    break;
+                case 'login':
+                    include_once('./controladores/usuarios/login.php');
                     break;
                 default:
                     http_response_code(400);
@@ -63,21 +73,17 @@ if (isset($_GET["url"])) {
                 case "usuarios/$number":
                     include_once('./controladores/usuarios/update.php');
                     break;
-                case 'grupos':
-                    http_response_code(200);
-                    print_r("edita grupo");
+                case "grupos/$number":
+                    include_once('./controladores/grupos/update.php');
                     break;
-                case 'salones':
-                    http_response_code(200);
-                    print_r("edita salon");
+                case "salones/$number":
+                    include_once('./controladores/salones/update.php');
                     break;
-                case 'cursos':
-                    http_response_code(200);
-                    print_r("edita curso");
+                case "cursos/$number":
+                    include_once('./controladores/cursos/update.php');
                     break;
-                case 'horarios':
-                    http_response_code(200);
-                    print_r("edita horario");
+                case "horarios/$number":
+                    include_once('./controladores/horarios/update.php');
                     break;
                 default:
                     http_response_code(400);
@@ -89,21 +95,17 @@ if (isset($_GET["url"])) {
                 case "usuarios/$number":
                     include_once('./controladores/usuarios/delete.php');
                     break;
-                case 'grupos':
-                    http_response_code(200);
-                    print_r("borra grupo");
+                case "grupos/$number":
+                    include_once('./controladores/grupos/delete.php');
                     break;
-                case 'salones':
-                    http_response_code(200);
-                    print_r("borra salon");
+                case "salones/$number":
+                    include_once('./controladores/salones/delete.php');
                     break;
-                case 'cursos':
-                    http_response_code(200);
-                    print_r("borra curso");
+                case "cursos/$number":
+                    include_once('./controladores/cursos/delete.php');
                     break;
-                case 'horarios':
-                    http_response_code(200);
-                    print_r("borra horario");
+                case "horarios/$number":
+                    include_once('./controladores/horarios/delete.php');
                     break;
                 default:
                     http_response_code(400);

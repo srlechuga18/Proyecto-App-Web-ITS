@@ -1,5 +1,7 @@
 CREATE DATABASE instituto_x;
 
+use instituto_x;
+
 CREATE TABLE category (
     id VARCHAR(5),
     nombre VARCHAR(20),
