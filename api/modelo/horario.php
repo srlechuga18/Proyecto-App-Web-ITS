@@ -46,6 +46,20 @@ class Horario{
         return $stmt;
     }
 
+    function readOne(){
+        $query = "SELECT * FROM ".$this->table_name." WHERE id = '".$this->id."';";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->diaDeLaSemana = $row['diaDeLaSemana'];
+        $this->hora = $row['hora'];
+        $this->cicloEscolar = $row['cicloEscolar'];
+        $this->profesor = $row['profesor'];
+        $this->curso = $row['curso'];
+        $this->grupo = $row['grupo'];
+        $this->salon = $row['salon'];
+    }
+
     function updateData(){
         $query = "UPDATE ".$this->table_name." SET diaDeLaSemana=". $this->diaDeLaSemana . "," .
         " hora='". $this->hora . ":00',".
