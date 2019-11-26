@@ -87,8 +87,47 @@
                         </div>
 
                         <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
-                            <p class="card-text">add</p>
-                            <a href="#" class="card-link text-danger">Read add</a>
+                            <div class="form-group">
+                                <label for="email">Correo:</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Contraseña:</label>
+                                <input type="password" class="form-control" id="pwd">
+                            </div>
+                            <div class="form-group">
+                                <label for="usr">Nombre:</label>
+                                <input type="text" class="form-control" id="usr">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoPaterno">Apellido Paterno:</label>
+                                <input type="text" class="form-control" id="apellidoPaterno">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoMaterno">Apellido Materno:</label>
+                                <input type="text" class="form-control" id="apellidoMaterno">
+                            </div>
+                            <div class="form-group">
+                                <label for="turno">Turno:</label>
+                                <select class="form-control" id="turno">
+                                    <option value="medio">Medio</option>
+                                    <option value="completo">Completo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cat">Categoria:</label>
+                                <select class="form-control" id="cat">
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Profesor</option>
+                                    <option value="3">Prefecto</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                            <label for="foto">Foto:</label>
+                            <input type="file" class="form-control-file border" id="foto">
+                            </div>
+                            <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
                         </div>
 
                         <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
@@ -104,111 +143,8 @@
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-
-            let base = window.location.origin;
-            let id = localStorage.getItem("id");
-            //trae datos del usuario actual
-            $.ajax({
-                url: base + "/api/usuarios/" + id,
-                type: "GET",
-                success: function (result) {
-                    //pone foto y nombre del usuario
-                    $(".userfoto").attr("src", "/api/public/img/" + result.foto);
-                    $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
-                    
-                    //trae todos los usuarios 
-                    $.ajax({
-                        url: base + "/api/usuarios",
-                        type: "GET",
-                        success: function (resulta2) {
-                            //los pone en la tabla
-                            resulta2.records.forEach(element => {
-                                $('tbody').append(
-                                    "<tr class='clickable-row' data-id=" + element.id + ">" +
-                                    "<td style='padding: 1px'><img src='/api/public/img/" + element.foto + "' alt='' class='rounded-circle' height='45px' width='45px'></td>" +
-                                    "<td>" + element.nombre + "</td>" +
-                                    "<td>" + element.apellidoPaterno + "</td>" +
-                                    "<td>" + element.apellidoMaterno + "</td>" +
-                                    "<td>" + element.email + "</td>" +
-                                    "<td>" + element.turno + "</td>" +
-                                    "</tr>");
-                            });
-                            //les da formato
-                            $('.table').DataTable();
-                            //highlight de las columnas
-                            $('.table').on('click', '.clickable-row', function (event) {
-                                if ($(this).hasClass('bg-info')) {
-                                    $(this).removeClass('bg-info');
-                                    //esconde los botones de modificar y borrar
-                                    $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
-                                    $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
-                                } else {
-                                    $(this).addClass('bg-info').siblings().removeClass('bg-info');
-                                    //muestra los botones de modificar y borrar
-                                    $('.card-header ul').children('li').eq(2).children('a').css("visibility", "visible");
-                                    $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
-
-                                    //guarda el id del usuario seleccionado
-                                    let id = $(this).data("id");
-
-                                    //click en modificar
-                                    $('.card-header ul').children('li').eq(2).children('a').off();
-                                    $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
-                                        console.log(id);
-                                        e.preventDefault()
-                                        $(this).tab('show')
-                                    });
-
-                                    //click en borrar
-                                    $('.card-header ul').children('li').eq(3).children('a').off();
-                                    $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
-                                        console.log(id);
-                                        e.preventDefault()
-                                        $(this).tab('show')
-                                    });
-                                }
-                            });
-
-                        },
-                        error: function (resp) {
-                            alert("error al cargar usuarios");
-                        }
-                    });
-
-
-                },
-                error: function (resp) {
-                    alert("inicie sesion");
-                    window.location.href = "/";
-                }
-            });
-
-        });
-
-        //cambiar entre tabs 
-        $('#crud a').click(function (e) {
-            e.preventDefault()
-            if($('.table .clickable-row').hasClass('bg-info')){
-                $('.table .clickable-row').removeClass('bg-info');
-            }            
-            $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
-            $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
-            $(this).tab('show')
-        });
-
-        //side panel
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
-        //log out
-        $("#log-out").click(function (x) {
-            localStorage.removeItem("id");
-            window.location.href = "/";
-        });
+    <script src="../../js/Docentes.js">
+        
     </script>
 </body>
 
