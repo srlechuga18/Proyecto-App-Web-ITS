@@ -18,9 +18,10 @@
                 <img src="" alt="" class="rounded-circle userfoto">
                 <p id="username"></p>
             </div>
-            
+
             <div class="list-group list-group-flush">
-                <a href="/vistas/admin/horarios.html" class="list-group-item list-group-item-action bg-light">Horarios</a>
+                <a href="/vistas/admin/horarios.html"
+                    class="list-group-item list-group-item-action bg-light">Horarios</a>
                 <a href="/vistas/admin/Salones.html" class="list-group-item list-group-item-action bg-light">Salones</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light active">Docentes</a>
                 <a href="/vistas/admin/Grupos.html" class="list-group-item list-group-item-action bg-light">Grupos</a>
@@ -47,10 +48,61 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    docentes
+                    <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Horarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add" role="tab" aria-controls="add"
+                                aria-selected="false">Agregar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false"
+                                style="display: none;">Modificar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="display: none;">Borrar</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    docentes
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido Paterno</th>
+                                        <th>Apellido Materno</th>
+                                        <th>Correo</th>
+                                        <th>Turno</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>url</td>
+                                        <td>Alejandro</td>
+                                        <td>De Leon</td>
+                                        <td>Lopez</td>
+                                        <td>aledeleon222@hotmail.com</td>
+                                        <td>completo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
+                            <p class="card-text">add</p>
+                            <a href="#" class="card-link text-danger">Read add</a>
+                        </div>
+
+                        <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
+                            <p class="card-text">modify</p>
+                            <a href="#" class="btn btn-danger btn-sm">Get modify</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,7 +112,7 @@
 
     <script>
         $(document).ready(function () {
-            
+
             let base = window.location.origin;
             let id = localStorage.getItem("id");
             $.ajax({
@@ -68,8 +120,8 @@
                 type: "GET",
                 success: function (result) {
                     console.log(result);
-                    $(".userfoto").attr("src","/api/public/img/"+result.foto);
-                    $("#username").text(result.nombre +" "+ result.apellidoPaterno +" "+ result.apellidoMaterno);
+                    $(".userfoto").attr("src", "/api/public/img/" + result.foto);
+                    $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
 
                 },
                 error: function (resp) {
@@ -78,6 +130,11 @@
                 }
             });
 
+        });
+
+        $('#crud a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
         });
 
         $("#menu-toggle").click(function (e) {
