@@ -10,3 +10,50 @@ footer{
     color: white;
     text-align: center;
 }
+
+.footer{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer p{
+    margin-bottom: 29px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.card{
+    position: absolute;
+    width: 365px;
+    height: 441px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.card .card-header{
+    position: absolute;
+    width: 324px;
+    height: 150px;
+    background: linear-gradient(90deg, #7F1400 0%, #F05545 100%);
+    box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.12), 0px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    left: 50%;
+    transform: translate(-50%, -39px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card .card-body{
+    width: 365px;
+    height: 402px;
+    background: #E7E7E7;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -6,20 +6,75 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/all.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
 
+    <div class="card text-center">
+        <div class="card-header">
+            Instituto X
+        </div>
+        <div class="card-body">
+            <input type="text" class="form-control" id="usr" placeholder="correo">
+            <input type="password" class="form-control" id="pwd" placeholder="contraseña">
+            <button type="submit" class="btn">Log In</button>
+        </div>
+    </div>
     <footer>
-        <p></p>
-        <i class="fab fa-facebook-square"></i>
-        <i class="fab fa-twitter"></i>
-        <i class="fab fa-instagram"></i>
+        <div class="clearfix footer">
+            <div class="d-flex flex-row float-left">
+                <p>Instituto X</p>
+            </div>
+            <!-- <div class="d-flex flex-row float-right">
+                <p>Facebook</p>
+                <p>Twitter</p>
+                <p>Instagram</p>
+            </div> -->
+        </div>
     </footer>
-    <script src="jquery/jquery-3.3.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="/jquery/jquery-3.4.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
+<script>
+    $(document).ready(function () {            
+    });
+
+    $('.btn').click(function () {
+        let usr = $('#usr').val();
+        let pwd = $('#pwd').val();
+        let base = window.location.origin;
+        $.ajax({
+            url: base+"/api/login",
+            type : "POST",
+            dataType : 'json',
+            data : JSON.stringify({
+                    email : usr,
+                    pass : pwd
+                }),
+            success : function(result) {
+                console.log(result.category);
+                
+                localStorage.setItem("id", result.id);
+                switch (result.category) {
+                    case '1'://admin                    
+                        window.location.href = base+"/vistas/admin/horarios.html"
+                        break;
+                    case '2'://profesor
+                    
+                    break;
+                    case '3'://prefecto
+                    
+                    break;
+                    default:
+                        break;
+                }
+            },
+            error: function(resp) {
+                alert("Usuario o contraseña incorrecta");
+            }
+        });
+    });
+</script>
