@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin: horarios</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link href="../../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../../css/all.css" rel="stylesheet">
+</head>
+
+<body id="horarios">
+    <div class="d-flex" id="wrapper">
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Prefecto </div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <nav class="navbar">
+                <!-- Brand -->
+                <div>
+                    <a class="navbar-brand" id="menu-toggle" href="#">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                    <span class="navbar-text">
+                        Horarios
+                    </span>
+                </div>
+                <a class="nav-link" id="log-out" href="">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Log Out
+                </a>
+
+            </nav>
+
+            <div class="card text-center">
+                <div class="card-header">
+                    horarios
+                </div>
+                <div class="card-body">
+                    horarios
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay"></div>
+    </div>
+    <script src="../../jquery/jquery-3.4.1.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+
+</html>
