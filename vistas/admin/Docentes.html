@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/global.css">
     <link href="../../css/simple-sidebar.css" rel="stylesheet">
     <link href="../../css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../DataTables/datatables.min.css" />
 </head>
 
 <body id="docentes">
@@ -59,10 +60,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false"
-                                style="display: none;">Modificar</a>
+                                style="visibility: hidden;">Modificar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="display: none;">Borrar</a>
+                            <a id="delete" class="nav-link" href="#" style="visibility: hidden;">Borrar</a>
                         </li>
                     </ul>
                 </div>
@@ -81,14 +82,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>url</td>
-                                        <td>Alejandro</td>
-                                        <td>De Leon</td>
-                                        <td>Lopez</td>
-                                        <td>aledeleon222@hotmail.com</td>
-                                        <td>completo</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -109,19 +102,81 @@
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
 
     <script>
         $(document).ready(function () {
 
             let base = window.location.origin;
             let id = localStorage.getItem("id");
+            //trae datos del usuario actual
             $.ajax({
                 url: base + "/api/usuarios/" + id,
                 type: "GET",
                 success: function (result) {
-                    console.log(result);
+                    //pone foto y nombre del usuario
                     $(".userfoto").attr("src", "/api/public/img/" + result.foto);
                     $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
+                    
+                    //trae todos los usuarios 
+                    $.ajax({
+                        url: base + "/api/usuarios",
+                        type: "GET",
+                        success: function (resulta2) {
+                            //los pone en la tabla
+                            resulta2.records.forEach(element => {
+                                $('tbody').append(
+                                    "<tr class='clickable-row' data-id=" + element.id + ">" +
+                                    "<td style='padding: 1px'><img src='/api/public/img/" + element.foto + "' alt='' class='rounded-circle' height='45px' width='45px'></td>" +
+                                    "<td>" + element.nombre + "</td>" +
+                                    "<td>" + element.apellidoPaterno + "</td>" +
+                                    "<td>" + element.apellidoMaterno + "</td>" +
+                                    "<td>" + element.email + "</td>" +
+                                    "<td>" + element.turno + "</td>" +
+                                    "</tr>");
+                            });
+                            //les da formato
+                            $('.table').DataTable();
+                            //highlight de las columnas
+                            $('.table').on('click', '.clickable-row', function (event) {
+                                if ($(this).hasClass('bg-info')) {
+                                    $(this).removeClass('bg-info');
+                                    //esconde los botones de modificar y borrar
+                                    $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
+                                    $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
+                                } else {
+                                    $(this).addClass('bg-info').siblings().removeClass('bg-info');
+                                    //muestra los botones de modificar y borrar
+                                    $('.card-header ul').children('li').eq(2).children('a').css("visibility", "visible");
+                                    $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
+
+                                    //guarda el id del usuario seleccionado
+                                    let id = $(this).data("id");
+
+                                    //click en modificar
+                                    $('.card-header ul').children('li').eq(2).children('a').off();
+                                    $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
+                                        console.log(id);
+                                        e.preventDefault()
+                                        $(this).tab('show')
+                                    });
+
+                                    //click en borrar
+                                    $('.card-header ul').children('li').eq(3).children('a').off();
+                                    $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
+                                        console.log(id);
+                                        e.preventDefault()
+                                        $(this).tab('show')
+                                    });
+                                }
+                            });
+
+                        },
+                        error: function (resp) {
+                            alert("error al cargar usuarios");
+                        }
+                    });
+
 
                 },
                 error: function (resp) {
@@ -132,16 +187,24 @@
 
         });
 
+        //cambiar entre tabs 
         $('#crud a').click(function (e) {
             e.preventDefault()
+            if($('.table .clickable-row').hasClass('bg-info')){
+                $('.table .clickable-row').removeClass('bg-info');
+            }            
+            $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
+            $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
             $(this).tab('show')
         });
 
+        //side panel
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
 
+        //log out
         $("#log-out").click(function (x) {
             localStorage.removeItem("id");
             window.location.href = "/";
