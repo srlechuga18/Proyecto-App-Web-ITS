@@ -43,16 +43,39 @@
             </nav>
 
             <div class="card text-center">
+
                 <div class="card-header">
-                    horarios
+                    <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Horarios</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    horarios
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Dia de la semana</th>
+                                        <th>Hora</th>
+                                        <th>Foto</th>
+                                        <th>Profesor</th>
+                                        <th>Salon</th>
+                                        <th>Curso</th>
+                                        <th>Grupo</th>
+                                        <th>Ciclo Escolar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="overlay"></div>
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
