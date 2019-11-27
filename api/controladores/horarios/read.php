@@ -24,7 +24,8 @@
                 "profesor" => $profesor,
                 "curso" => $curso,
                 "grupo" => $grupo,
-                "salon" => $salon
+                "salon" => $salon,
+                "foto" => $foto
             );
 
             array_push($horario_arr["records"],$horario_item);

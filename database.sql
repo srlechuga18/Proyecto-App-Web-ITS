@@ -71,7 +71,7 @@ select count(*) from <table> where username = @username and password = MD5(@pass
 
 select max(id) from usuario;
 
-SELECT h.hora,CONCAT(s.nombre,s.edificio) as salon, c.nombre as curso, c.semestre as cursoSemestre, CONCAT(g.nombre,g.semestre), h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) 
+SELECT h.hora,h.diaDeLaSemana,CONCAT(s.nombre,s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor
 FROM horario h, salon s, curso c, grupo g, usuario p 
 where h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id;
 

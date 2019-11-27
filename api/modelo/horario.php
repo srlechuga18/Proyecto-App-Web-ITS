@@ -16,8 +16,19 @@ class Horario{
         $this->conn = $db;
     }
 
-    function read(){
+/*     function read(){
         $query = "SELECT * FROM ".$this->table_name; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    } */
+
+
+    function read(){
+        $query = 
+        "SELECT h.id,h.hora,h.diaDeLaSemana,CONCAT(s.nombre,s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor".
+        " FROM horario h, salon s, curso c, grupo g, usuario p". 
+        " WHERE h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

@@ -11,12 +11,12 @@ $(document).ready(function () {
             $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
 
             $.ajax({
-                url:"/api/horarios",
+                url: "/api/horarios",
                 type: "GET",
                 success: function (resulta2) {
                     //los pone en la tabla
                     resulta2.records.forEach(element => {
-                        
+                        let hora = element.hora.replace(/:00$/,"");
                         $('tbody').append(
                             "<tr class='clickable-row' data-id=" + element.id + ">" +
                             "<td style='padding: 1px'><img src='/api/public/img/" + element.foto + "' alt='' class='rounded-circle' height='45px' width='45px'></td>" +
@@ -29,9 +29,9 @@ $(document).ready(function () {
                             "</tr>");
                     });
                     //les da formato
-                    $('.table').DataTable();
+                    //$('.table').DataTable();
                     //highlight de las columnas
-                    $('.table').on('click', '.clickable-row', function (event) {
+                    /* $('.table').on('click', '.clickable-row', function (event) {
                         if ($(this).hasClass('bg-info')) {
                             $(this).removeClass('bg-info');
                             //esconde los botones de modificar y borrar
@@ -44,89 +44,89 @@ $(document).ready(function () {
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
 
                             //guarda el id del usuario seleccionado
-                            let usrid = $(this).data("id");
+                            let usrid = $(this).data("id"); */
 
-                            //click en modificar
-                            /* $('.card-header ul').children('li').eq(2).children('a').off();
-                            $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
+                    //click en modificar
+                    /* $('.card-header ul').children('li').eq(2).children('a').off();
+                    $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
 
-                                e.preventDefault()
-                                $(this).tab('show')
+                        e.preventDefault()
+                        $(this).tab('show')
 
-                                $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
-                                //traer info 
-                                $.ajax({
-                                    url: base + "/api/usuarios/" + usrid,
-                                    type: "GET",
-                                    success: function (n) {
-                                        $('.tab-pane#modify #email2').val(n.email);
-                                        $('.tab-pane#modify #nombre').val(n.nombre);
-                                        $('.tab-pane#modify #apellidoPaterno2').val(n.apellidoPaterno);
-                                        $('.tab-pane#modify #apellidoMaterno2').val(n.apellidoMaterno);
-                                        $('.tab-pane#modify #turno2').val(n.turno);
+                        $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
+                        //traer info 
+                        $.ajax({
+                            url: base + "/api/usuarios/" + usrid,
+                            type: "GET",
+                            success: function (n) {
+                                $('.tab-pane#modify #email2').val(n.email);
+                                $('.tab-pane#modify #nombre').val(n.nombre);
+                                $('.tab-pane#modify #apellidoPaterno2').val(n.apellidoPaterno);
+                                $('.tab-pane#modify #apellidoMaterno2').val(n.apellidoMaterno);
+                                $('.tab-pane#modify #turno2').val(n.turno);
 
-                                        //modify data
-                                        $('#modify-dts-btn').click(function (x) {
-                                            let email = $('.tab-pane#modify #email2').val();
-                                            let nombre = $('.tab-pane#modify #nombre').val();
-                                            let apellidoPaterno = $('.tab-pane#modify #apellidoPaterno2').val();
-                                            let apellidoMaterno = $('.tab-pane#modify #apellidoMaterno2').val();
-                                            let turno = $('.tab-pane#modify #turno2').val();
+                                //modify data
+                                $('#modify-dts-btn').click(function (x) {
+                                    let email = $('.tab-pane#modify #email2').val();
+                                    let nombre = $('.tab-pane#modify #nombre').val();
+                                    let apellidoPaterno = $('.tab-pane#modify #apellidoPaterno2').val();
+                                    let apellidoMaterno = $('.tab-pane#modify #apellidoMaterno2').val();
+                                    let turno = $('.tab-pane#modify #turno2').val();
 
-                                            $.ajax({
-                                                url: base + "/api/usuarios/" + usrid,
-                                                type: "PATCH",
-                                                data: JSON.stringify({
-                                                    'nombre': nombre,
-                                                    'apellidoPaterno': apellidoPaterno,
-                                                    'apellidoMaterno': apellidoMaterno,
-                                                    'email': email,
-                                                    'turno': turno
-                                                }),
-                                                success: function (x) {
-                                                    alert("datos modificados");
-                                                    window.location.reload();
-                                                },
-                                                error: function (x) {
-                                                    alert("error al modificar los datos");
-                                                }
-                                            });
-                                        });
-
-                                    },
-                                    error: function (n) {
-                                        alert("error al cargar usuarios");
-                                    }
-                                });
-
-                            });
- */
-                            //click en borrar
-                            /* $('.card-header ul').children('li').eq(3).children('a').off();
-                            $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
-                                e.preventDefault()
-                                $(this).tab('show')
-                                $('.modal').modal();
-                                $('.modal button.btn-primary').click(function (params) {
                                     $.ajax({
                                         url: base + "/api/usuarios/" + usrid,
-                                        type: "DELETE",
+                                        type: "PATCH",
+                                        data: JSON.stringify({
+                                            'nombre': nombre,
+                                            'apellidoPaterno': apellidoPaterno,
+                                            'apellidoMaterno': apellidoMaterno,
+                                            'email': email,
+                                            'turno': turno
+                                        }),
                                         success: function (x) {
-                                            alert("usuario eliminado");
+                                            alert("datos modificados");
                                             window.location.reload();
                                         },
-                                        error: function (y) {
-                                            alert("error al eliminar el usuario");
+                                        error: function (x) {
+                                            alert("error al modificar los datos");
                                         }
                                     });
                                 });
-                            }); */
-                        }
+
+                            },
+                            error: function (n) {
+                                alert("error al cargar usuarios");
+                            }
+                        });
+
                     });
+*/
+                    //click en borrar
+                    /* $('.card-header ul').children('li').eq(3).children('a').off();
+                    $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
+                        e.preventDefault()
+                        $(this).tab('show')
+                        $('.modal').modal();
+                        $('.modal button.btn-primary').click(function (params) {
+                            $.ajax({
+                                url: base + "/api/usuarios/" + usrid,
+                                type: "DELETE",
+                                success: function (x) {
+                                    alert("usuario eliminado");
+                                    window.location.reload();
+                                },
+                                error: function (y) {
+                                    alert("error al eliminar el usuario");
+                                }
+                            });
+                        });
+                    }); */
+                    //}
+                    //});
 
                 },
                 error: function (resp) {
-                    alert("error al cargar usuarios");
+                    alert("error al cargar horarios");
                 }
             });
 
