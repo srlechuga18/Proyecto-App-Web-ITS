@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/global.css">
     <link href="../../css/simple-sidebar.css" rel="stylesheet">
     <link href="../../css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../DataTables/datatables.min.css" />
 </head>
 
 <body id="salones">
@@ -53,43 +54,26 @@
                     salones
                 </div>
             </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Desea Borrar el usuario?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary">Si</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            
-            let base = window.location.origin;
-            let id = localStorage.getItem("id");
-            $.ajax({
-                url: base + "/api/usuarios/" + id,
-                type: "GET",
-                success: function (result) {
-                    console.log(result);
-                    $(".userfoto").attr("src","/api/public/img/"+result.foto);
-                    $("#username").text(result.nombre +" "+ result.apellidoPaterno +" "+ result.apellidoMaterno);
-
-                },
-                error: function (resp) {
-                    alert("inicie sesion");
-                    window.location.href = "/";
-                }
-            });
-
-        });
-
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
-        $("#log-out").click(function (x) {
-            localStorage.removeItem("id");
-            window.location.href = "/";
-        });
-    </script>
+    <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
+    <script src="../../js/Salones.js"></script>
 </body>
 
 </html>

@@ -63,7 +63,7 @@
                                 style="visibility: hidden;">Modificar</a>
                         </li>
                         <li class="nav-item">
-                            <a id="delete" class="nav-link" href="#" style="visibility: hidden;">Borrar</a>
+                            <a id="delete" href="#" class="" style="visibility: hidden;">Borrar</a>
                         </li>
                     </ul>
                 </div>
@@ -124,15 +124,79 @@
                             </div>
 
                             <div class="form-group">
-                            <label for="foto">Foto:</label>
-                            <input type="file" class="form-control-file border" id="foto">
+                                <label for="foto">Foto:</label>
+                                <input type="file" class="form-control-file border" id="foto">
                             </div>
                             <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
                         </div>
 
                         <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
-                            <p class="card-text">modify</p>
-                            <a href="#" class="btn btn-danger btn-sm">Get modify</a>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Modificar Contraseña</h5>
+                                    <div class="form-group">
+                                        <label for="pswd">Contraseña nueva:</label>
+                                        <input type="password" class="form-control" id="pswd">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd2">Repetir Contraseña:</label>
+                                        <input type="password" class="form-control" id="pwd2">
+                                    </div>
+                                    <Button type="submit" class="btn btn-primary" id="modify-pwd-btn">Guardar
+                                        Contraseña</Button>
+                                </div>
+                                <div class="col">
+                                    <h5>Modificar Datos</h5>
+                                    <div class="form-group">
+                                        <label for="email2">Correo:</label>
+                                        <input type="email" class="form-control" id="email2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre:</label>
+                                        <input type="text" class="form-control" id="nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellidoPaterno2">Apellido Paterno:</label>
+                                        <input type="text" class="form-control" id="apellidoPaterno2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellidoMaterno2">Apellido Materno:</label>
+                                        <input type="text" class="form-control" id="apellidoMaterno2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="turno2">Turno:</label>
+                                        <select class="form-control" id="turno2">
+                                            <option value="medio">Medio</option>
+                                            <option value="completo">Completo</option>
+                                        </select>
+                                    </div>
+                                    <Button type="submit" class="btn btn-primary" id="modify-dts-btn">Guardar
+                                        Datos</Button>
+                                </div>
+                                <div class="col">
+                                    <h5>Modificar Foto</h5>
+                                    <div class="form-group">
+                                        <label for="foto">Foto:</label>
+                                        <input type="file" class="form-control-file border" id="foto">
+                                    </div>
+                                    <Button type="submit" class="btn btn-primary" id="modify-pic-btn">Guardar
+                                        Foto</Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Desea Borrar el usuario?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary">Si</button>
                         </div>
                     </div>
                 </div>
@@ -142,10 +206,7 @@
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
-
-    <script src="../../js/Docentes.js">
-        
-    </script>
+    <script src="../../js/Docentes.js"></script>
 </body>
 
 </html>

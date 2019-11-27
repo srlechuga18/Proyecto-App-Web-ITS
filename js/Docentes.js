@@ -44,22 +44,132 @@ $(document).ready(function () {
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
 
                             //guarda el id del usuario seleccionado
-                            let id = $(this).data("id");
+                            let usrid = $(this).data("id");
 
                             //click en modificar
                             $('.card-header ul').children('li').eq(2).children('a').off();
                             $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
-                                console.log(id);
+
                                 e.preventDefault()
                                 $(this).tab('show')
+
+                                $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
+                                //traer info 
+                                $.ajax({
+                                    url: base + "/api/usuarios/" + usrid,
+                                    type: "GET",
+                                    success: function (n) {
+                                        $('.tab-pane#modify #email2').val(n.email);
+                                        $('.tab-pane#modify #nombre').val(n.nombre);
+                                        $('.tab-pane#modify #apellidoPaterno2').val(n.apellidoPaterno);
+                                        $('.tab-pane#modify #apellidoMaterno2').val(n.apellidoMaterno);
+                                        $('.tab-pane#modify #turno2').val(n.turno);
+
+                                        //modify password
+                                        $('#modify-pwd-btn').click(function (x) {
+                                            let pswd = $('.tab-pane#modify #pswd').val();
+                                            let pwd2 = $('.tab-pane#modify #pwd2').val();
+                                            if (pswd == pwd2) {
+                                                $.ajax({
+                                                    url: base + "/api/usuarios/" + usrid,
+                                                    type: "PATCH",
+                                                    data: JSON.stringify({
+                                                        'pass': pswd
+                                                    }),
+                                                    success: function (x) {
+                                                        alert("contraseña modificada");
+                                                        window.location.reload();
+                                                    },
+                                                    error: function (x) {
+                                                        alert("error al modificar la contraseña");
+                                                    }
+                                                });
+                                            } else {
+                                                alert("Las contraseñas no coinciden");
+                                                $('.tab-pane#modify #pswd').val('');
+                                                $('.tab-pane#modify #pwd2').val('');
+                                            }
+                                        });
+
+                                        //modify data
+                                        $('#modify-dts-btn').click(function (x) {
+                                            let email = $('.tab-pane#modify #email2').val();
+                                            let nombre = $('.tab-pane#modify #nombre').val();
+                                            let apellidoPaterno = $('.tab-pane#modify #apellidoPaterno2').val();
+                                            let apellidoMaterno = $('.tab-pane#modify #apellidoMaterno2').val();
+                                            let turno = $('.tab-pane#modify #turno2').val();
+
+                                            $.ajax({
+                                                url: base + "/api/usuarios/" + usrid,
+                                                type: "PATCH",
+                                                data: JSON.stringify({
+                                                    'nombre': nombre,
+                                                    'apellidoPaterno': apellidoPaterno,
+                                                    'apellidoMaterno': apellidoMaterno,
+                                                    'email': email,
+                                                    'turno': turno
+                                                }),
+                                                success: function (x) {
+                                                    alert("datos modificados");
+                                                    window.location.reload();
+                                                },
+                                                error: function (x) {
+                                                    alert("error al modificar los datos");
+                                                }
+                                            });
+                                        });
+
+                                        //modify foto
+                                        $('#modify-pic-btn').click(function (x) {
+                                            let file = document.querySelector('#modify input[type=file]').files[0];
+                                            var reader = new FileReader();
+                                            reader.readAsDataURL(file);
+                                            reader.onloadend = function () {
+                                                $.ajax({
+                                                    url: base + "/api/usuarios/" + usrid,
+                                                    type: "PATCH",
+                                                    dataType: 'json',
+                                                    data: JSON.stringify({
+                                                        'foto': reader.result
+                                                    }),
+                                                    success: function (x) {
+                                                        console.log(x);
+                                                        alert("foto modificada");
+                                                        window.location.reload();
+                                                    },
+                                                    error: function (y) {
+                                                        alert("error al modificar la foto");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    },
+                                    error: function (n) {
+                                        alert("error al cargar usuarios");
+                                    }
+                                });
+
                             });
 
                             //click en borrar
                             $('.card-header ul').children('li').eq(3).children('a').off();
                             $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
-                                console.log(id);
                                 e.preventDefault()
                                 $(this).tab('show')
+                                $('.modal').modal();
+                                $('.modal button.btn-primary').click(function (params) {
+                                    $.ajax({
+                                        url: base + "/api/usuarios/" + usrid,
+                                        type: "DELETE",
+                                        success: function (x) {
+                                            alert("usuario eliminado");
+                                            window.location.reload();
+                                        },
+                                        error: function (y) {
+                                            alert("error al eliminar el usuario");
+                                        }
+                                    });
+                                });
                             });
                         }
                     });
@@ -71,6 +181,7 @@ $(document).ready(function () {
             });
 
             $('#add-btn').click(function (x) {
+
                 let pass = $('.tab-pane#add #pwd').val();
                 let email = $('.tab-pane#add #email').val();
                 let nombre = $('.tab-pane#add #usr').val();
@@ -78,7 +189,7 @@ $(document).ready(function () {
                 let apellidoMaterno = $('.tab-pane#add #apellidoMaterno').val();
                 let turno = $('.tab-pane#add #turno').val();
                 let category = $('.tab-pane#add #cat').val();
-                let file = document.querySelector('input[type=file]').files[0];
+                let file = document.querySelector('#add input[type=file]').files[0];
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = function () {
@@ -139,11 +250,4 @@ $("#menu-toggle").click(function (e) {
 $("#log-out").click(function (x) {
     localStorage.removeItem("id");
     window.location.href = "/";
-});
-
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
 });

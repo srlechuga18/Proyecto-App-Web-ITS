@@ -64,6 +64,15 @@ body{
     margin-right: auto;
 }
 
+#modify .form-group{
+    margin-bottom: 10px;
+}
+
+.nav-item a{
+    display: block;
+    padding: .5rem 1rem;
+}
+
 #add .form-group label{
     margin: 0px 5px;
     line-height: 35px;
