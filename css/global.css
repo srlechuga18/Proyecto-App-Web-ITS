@@ -64,7 +64,15 @@ body{
     margin-right: auto;
 }
 
-#modify .form-group{
+#salones #modify .form-group,#grupos #modify .form-group,#cursos #modify .form-group, #horarios #modify .form-group{
+    display: flex;
+    width: 70%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#docentes #modify .form-group{
     margin-bottom: 10px;
 }
 
@@ -74,6 +82,13 @@ body{
 }
 
 #add .form-group label{
+    margin: 0px 5px;
+    line-height: 35px;
+    width: 30%;
+    text-align: right;
+}
+
+#salones #modify .form-group label{
     margin: 0px 5px;
     line-height: 35px;
     width: 30%;

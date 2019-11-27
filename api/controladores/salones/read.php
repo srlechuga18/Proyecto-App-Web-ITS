@@ -3,7 +3,7 @@
     header("Content-Type: application/json; charset=UTF-8");
 
     include_once __DIR__."/../../config/database.php";
-    include_once __DIR__."/../../modelo/usuario.php";
+    include_once __DIR__."/../../modelo/salon.php";
 
     $database = new Database();
     $db = $database->getConnection();
