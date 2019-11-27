@@ -126,7 +126,7 @@ $(document).ready(function () {
 
                 },
                 error: function (resp) {
-                    alert("error al cargar horarios");
+                    alert("No se encontrarn horarios");
                 }
             });
 

@@ -49,7 +49,7 @@ CREATE TABLE salon (
 CREATE TABLE horario (
     id INT NOT NULL AUTO_INCREMENT,
     diaDeLaSemana int ,
-    hora date ,
+    hora time ,
     cicloEscolar VARCHAR(20) ,
     profesor INT ,
     curso INT ,

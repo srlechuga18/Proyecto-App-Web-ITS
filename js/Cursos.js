@@ -114,7 +114,7 @@ $(document).ready(function () {
 
                 },
                 error: function (resp) {
-                    alert("error al cargar cursos");
+                    alert("No se encontraron cursos");
                 }
             });
 

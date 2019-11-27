@@ -162,7 +162,7 @@ $(document).ready(function () {
                                         });
                                     },
                                     error: function (n) {
-                                        alert("error al cargar usuarios");
+                                        alert("No se encontraron docentes");
                                     }
                                 });
 
