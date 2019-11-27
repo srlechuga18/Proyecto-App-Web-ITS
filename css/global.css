@@ -88,7 +88,7 @@ body{
     text-align: right;
 }
 
-#salones #modify .form-group label{
+#salones #modify .form-group label,#cursos #modify .form-group label,#grupos #modify .form-group label,#horarios #modify .form-group label{
     margin: 0px 5px;
     line-height: 35px;
     width: 30%;

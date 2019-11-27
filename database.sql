@@ -25,8 +25,8 @@ CREATE TABLE usuario (
 
 CREATE TABLE curso (
     id INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(20) ,
-    semestre int ,
+    nombre VARCHAR(50) ,
+    semestre VARCHAR(20) ,
     descripcion VARCHAR(150) ,
     CONSTRAINT PK_Curso PRIMARY KEY (id)
 );
