@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+            
     let base = window.location.origin;
     let id = localStorage.getItem("id");
     $.ajax({
@@ -7,11 +7,11 @@ $(document).ready(function () {
         type: "GET",
         success: function (result) {
             console.log(result);
-            $(".userfoto").attr("src", "/api/public/img/" + result.foto);
-            $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
+            $(".userfoto").attr("src","/api/public/img/"+result.foto);
+            $("#username").text(result.nombre +" "+ result.apellidoPaterno +" "+ result.apellidoMaterno);
 
             $.ajax({
-                url: base + "/api/cursos",
+                url: base + "/api/grupos",
                 type: "GET",
                 success: function (resulta2) {
                     //los pone en la tabla
@@ -20,7 +20,6 @@ $(document).ready(function () {
                             "<tr class='clickable-row' data-id=" + element.id + ">" +
                             "<td>" + element.nombre + "</td>" +
                             "<td>" + element.semestre + "</td>" +
-                            "<td>" + element.descripcion + "</td>" +
                             "</tr>");
                     });
                     //les da formato
@@ -51,26 +50,23 @@ $(document).ready(function () {
                                 $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
                                 //traer info 
                                 $.ajax({
-                                    url: base + "/api/cursos/" + usrid,
+                                    url: base + "/api/grupos/" + usrid,
                                     type: "GET",
                                     success: function (n) {
                                         $('.tab-pane#modify #mod-nombre').val(n.nombre);
                                         $('.tab-pane#modify #mod-semestre').val(n.semestre);
-                                        $('.tab-pane#modify #mod-desc').val(n.descripcion);
 
                                         //modify data
                                         $('#mod-btn').click(function (x) {
                                             let nombre = $('.tab-pane#modify #mod-nombre').val();
                                             let semestre = $('.tab-pane#modify #mod-semestre').val();
-                                            let descripcion = $('.tab-pane#modify #mod-desc').val();
 
                                             $.ajax({
-                                                url: base + "/api/cursos/" + usrid,
+                                                url: base + "/api/grupos/" + usrid,
                                                 type: "PATCH",
                                                 data: JSON.stringify({
                                                     'nombre': nombre,
-                                                    'semestre': semestre,
-                                                    'descripcion': descripcion
+                                                    'semestre': semestre
                                                 }),
                                                 success: function (x) {
                                                     alert("datos modificados");
@@ -83,7 +79,7 @@ $(document).ready(function () {
                                         });
                                     },
                                     error: function (n) {
-                                        alert("error al cargar usuarios");
+                                        alert("error al cargar grupos");
                                     }
                                 });
 
@@ -97,14 +93,14 @@ $(document).ready(function () {
                                 $('.modal').modal();
                                 $('.modal button.btn-primary').click(function (params) {
                                     $.ajax({
-                                        url: base + "/api/cursos/" + usrid,
+                                        url: base + "/api/grupos/" + usrid,
                                         type: "DELETE",
                                         success: function (x) {
-                                            alert("curso eliminado");
+                                            alert("grupo eliminado");
                                             window.location.reload();
                                         },
                                         error: function (y) {
-                                            alert("error al eliminar el curso");
+                                            alert("error al eliminar el grupo");
                                         }
                                     });
                                 });
@@ -118,26 +114,25 @@ $(document).ready(function () {
                 }
             });
 
+
             $('#add-btn').click(function (x) {
                 let nombre = $('.tab-pane#add #nombre').val();
                 let semestre = $('.tab-pane#add #semestre').val();
-                let descripcion = $('.tab-pane#add #desc').val();
                 $.ajax({
-                    url: base + "/api/cursos",
+                    url: base + "/api/grupos",
                     type: "POST",
                     dataType: 'json',
                     data: JSON.stringify({
                         'nombre': nombre,
-                        'semestre': semestre,
-                        'descripcion': descripcion
+                        'semestre': semestre
                     }),
                     success: function (x) {
                         console.log(x);
-                        alert("Curso creado");
+                        alert("grupo creado");
                         window.location.reload();
                     },
                     error: function (y) {
-                        alert("error al crear el curso");
+                        alert("error al crear el grupo");
                     }
                 });
 
@@ -150,7 +145,6 @@ $(document).ready(function () {
     });
 
 });
-
 
 $('#crud a').click(function (e) {
     e.preventDefault()

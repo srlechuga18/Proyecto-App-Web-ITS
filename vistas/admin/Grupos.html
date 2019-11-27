@@ -9,20 +9,23 @@
     <link rel="stylesheet" href="../../css/global.css">
     <link href="../../css/simple-sidebar.css" rel="stylesheet">
     <link href="../../css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../DataTables/datatables.min.css" />
 </head>
 
-<body id="docentes">
+<body id="grupos">
     <div class="d-flex toggled" id="wrapper">
         <div class="bg-light border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">
                 <img src="" alt="" class="rounded-circle userfoto">
                 <p id="username"></p>
             </div>
-            
+
             <div class="list-group list-group-flush">
-                <a href="/vistas/admin/horarios.html" class="list-group-item list-group-item-action bg-light">Horarios</a>
+                <a href="/vistas/admin/horarios.html"
+                    class="list-group-item list-group-item-action bg-light">Horarios</a>
                 <a href="/vistas/admin/Salones.html" class="list-group-item list-group-item-action bg-light">Salones</a>
-                <a href="/vistas/admin/Docentes.html" class="list-group-item list-group-item-action bg-light">Docentes</a>
+                <a href="/vistas/admin/Docentes.html"
+                    class="list-group-item list-group-item-action bg-light">Docentes</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light active">Grupos</a>
                 <a href="/vistas/admin/Cursos.html" class="list-group-item list-group-item-action bg-light">Cursos</a>
             </div>
@@ -47,49 +50,86 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    grupos
+                    <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Cursos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add" role="tab" aria-controls="add"
+                                aria-selected="false">Agregar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false"
+                                style="visibility: hidden;">Modificar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="delete" href="#" class="" style="visibility: hidden;">Borrar</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    grupos
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Semestre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="semestre">Semestre:</label>
+                                <input type="text" class="form-control" id="semestre">
+                            </div>
+                            <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
+                        </div>
+
+                        <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
+                                <div class="form-group">
+                                    <label for="mod-nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="mod-nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mod-semestre">Semestre:</label>
+                                    <input type="text" class="form-control" id="mod-semestre">
+                                </div>
+                                <Button type="submit" class="btn btn-primary" id="mod-btn">Guardar</Button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Desea Borrar el grupo?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary">Si</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            
-            let base = window.location.origin;
-            let id = localStorage.getItem("id");
-            $.ajax({
-                url: base + "/api/usuarios/" + id,
-                type: "GET",
-                success: function (result) {
-                    console.log(result);
-                    $(".userfoto").attr("src","/api/public/img/"+result.foto);
-                    $("#username").text(result.nombre +" "+ result.apellidoPaterno +" "+ result.apellidoMaterno);
-
-                },
-                error: function (resp) {
-                    alert("inicie sesion");
-                    window.location.href = "/";
-                }
-            });
-
-        });
-
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
-        $("#log-out").click(function (x) {
-            localStorage.removeItem("id");
-            window.location.href = "/";
-        });
-    </script>
+    <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
+    <script src="../../js/Grupos.js"></script>
 </body>
 
 </html>

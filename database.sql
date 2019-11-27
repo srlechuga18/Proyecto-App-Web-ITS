@@ -33,7 +33,7 @@ CREATE TABLE curso (
 
 CREATE TABLE grupo (
     id INT NOT NULL AUTO_INCREMENT,
-    semestre int ,
+    semestre VARCHAR(20) ,
     nombre VARCHAR(20) ,
     CONSTRAINT PK_Grupo PRIMARY KEY (id)
 );
