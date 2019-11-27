@@ -59,14 +59,15 @@ $(document).ready(function () {
         }
     });
 
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+    $("#log-out").click(function (x) {
+        localStorage.removeItem("id");
+        window.location.href = "/";
+    });
+
 });
 
-$("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
-
-$("#log-out").click(function (x) {
-    localStorage.removeItem("id");
-    window.location.href = "/";
-});
