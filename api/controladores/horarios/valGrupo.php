@@ -15,9 +15,43 @@ $horario = new Horario($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (!empty($data->hora) && !empty($data->grupo)) {
+if (!empty($data->id) && !empty($data->diaDeLaSemana) && !empty($data->hora) && !empty($data->grupo)) {
     $horario->hora = $data->hora;
     $horario->grupo = $data->grupo;
+    $horario->diaDeLaSemana = $data->diaDeLaSemana;
+
+    $stmt = $horario->valGrupo();
+    $num = $stmt->rowCount();
+    if ($num > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+            $horario->id = $id;
+        }
+
+        if ($horario->id == $data->id) {
+            // set response code - 200 ok
+            http_response_code(200);
+
+            // tell the user
+            echo json_encode(true);
+        } else {
+            // set response code - 503 service unavailable
+            http_response_code(404);
+
+            // tell the user
+            echo json_encode(false);
+        }
+    } else {
+        // set response code - 200 ok
+        http_response_code(200);
+
+        // tell the user
+        echo json_encode(true);
+    }
+}elseif (!empty($data->diaDeLaSemana) && !empty($data->hora) && !empty($data->grupo)) {
+    $horario->hora = $data->hora;
+    $horario->grupo = $data->grupo;
+    $horario->diaDeLaSemana = $data->diaDeLaSemana;
 
     $stmt = $horario->valGrupo();
     $num = $stmt->rowCount();

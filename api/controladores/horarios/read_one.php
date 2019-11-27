@@ -21,7 +21,8 @@
             "profesor" => $horario->profesor,
             "curso" => $horario->curso,
             "grupo" => $horario->grupo,
-            "salon" => $horario->salon
+            "salon" => $horario->salon,
+            "foto" => $horario->foto
         );
      
         // set response code - 200 OK

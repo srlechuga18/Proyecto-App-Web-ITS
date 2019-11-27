@@ -15,10 +15,43 @@ $horario = new Horario($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-if (!empty($data->hora) && !empty($data->salon)) {
+if (!empty($data->id) && !empty($data->diaDeLaSemana) && !empty($data->hora) && !empty($data->salon)) {
     $horario->hora = $data->hora;
     $horario->salon = $data->salon;
+    $horario->diaDeLaSemana = $data->diaDeLaSemana;
 
+    $stmt = $horario->valSalon();
+    $num = $stmt->rowCount();
+    if ($num > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+            $horario->id = $id;
+        }
+
+        if ($horario->id == $data->id) {
+            // set response code - 200 ok
+            http_response_code(200);
+
+            // tell the user
+            echo json_encode(true);
+        } else {
+            // set response code - 503 service unavailable
+            http_response_code(404);
+
+            // tell the user
+            echo json_encode(false);
+        }
+    } else {
+        // set response code - 200 ok
+        http_response_code(200);
+
+        // tell the user
+        echo json_encode(true);
+    }
+}elseif (!empty($data->diaDeLaSemana) && !empty($data->hora) && !empty($data->salon)) {
+    $horario->hora = $data->hora;
+    $horario->salon = $data->salon;
+    $horario->diaDeLaSemana = $data->diaDeLaSemana;
 
     $stmt = $horario->valSalon();
     $num = $stmt->rowCount();
@@ -36,7 +69,7 @@ if (!empty($data->hora) && !empty($data->salon)) {
         // tell the user
         echo json_encode(true);
     }
-} else {
+}else {
     http_response_code(400);
     echo json_encode(array("message" => "Unable process request"));
 }

@@ -55,18 +55,16 @@
                     pass : pwd
                 }),
             success : function(result) {
-                console.log(result.category);
-                
                 localStorage.setItem("id", result.id);
                 switch (result.category) {
                     case '1'://admin                    
                         window.location.href = "/vistas/admin/horarios.html"
                         break;
-                    case '2'://profesor
-                    
+                    case '2'://profesor                    
+                        window.location.href = "/vistas/profesor/horarios.html"    
                     break;
                     case '3'://prefecto
-                    
+                        window.location.href = "/vistas/prefecto/horarios.html"                        
                     break;
                     default:
                         break;

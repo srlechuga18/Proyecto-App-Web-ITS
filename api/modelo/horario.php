@@ -11,6 +11,7 @@ class Horario{
     public $curso;
     public $grupo;
     public $salon;
+    public $foto;
 
     public function __construct($db){
         $this->conn = $db;
@@ -26,7 +27,7 @@ class Horario{
 
     function read(){
         $query = 
-        "SELECT h.id,h.hora,h.diaDeLaSemana,CONCAT(s.nombre,s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor".
+        "SELECT h.id,h.hora,h.diaDeLaSemana,CONCAT(s.nombre,' ',s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor".
         " FROM horario h, salon s, curso c, grupo g, usuario p". 
         " WHERE h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id;";
         $stmt = $this->conn->prepare($query);
@@ -35,21 +36,21 @@ class Horario{
     }
 
     function valSalon(){
-        $query =  "SELECT * FROM ".$this->table_name. " WHERE salon='" . $this->salon . "' AND hora='" . $this->hora . ":00';"; 
+        $query =  "SELECT id FROM ".$this->table_name. " WHERE salon='" . $this->salon . "' AND hora='" . $this->hora . ":00' AND diaDeLaSemana=" . $this->diaDeLaSemana .";"; 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
     function valGrupo(){
-        $query =  "SELECT * FROM ".$this->table_name. " WHERE grupo='" . $this->grupo . "' AND hora='" . $this->hora . ":00';"; 
+        $query =  "SELECT id FROM ".$this->table_name. " WHERE grupo='" . $this->grupo . "' AND hora='" . $this->hora . ":00' AND diaDeLaSemana=" . $this->diaDeLaSemana .";"; 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
     function valProf(){
-        $query =  "SELECT * FROM ".$this->table_name. " WHERE profesor='" . $this->profesor . "' AND hora='" . $this->hora . ":00';"; 
+        $query =  "SELECT id FROM ".$this->table_name. " WHERE profesor='" . $this->profesor . "' AND hora='" . $this->hora . ":00' AND diaDeLaSemana=" . $this->diaDeLaSemana .";"; 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -92,6 +93,25 @@ class Horario{
         $this->salon = $row['salon'];
     }
 
+/*     function readOne(){
+        $query = 
+        "SELECT h.hora,h.diaDeLaSemana,CONCAT(s.nombre,' ',s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor".
+        " FROM horario h, salon s, curso c, grupo g, usuario p". 
+        " WHERE h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id and h.id = '".$this->id."';";
+        //"SELECT * FROM ".$this->table_name." WHERE id = '".$this->id."';";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->diaDeLaSemana = $row['diaDeLaSemana'];
+        $this->hora = $row['hora'];
+        $this->cicloEscolar = $row['cicloEscolar'];
+        $this->profesor = $row['profesor'];
+        $this->curso = $row['curso'];
+        $this->grupo = $row['grupo'];
+        $this->salon = $row['salon'];
+        $this->foto = $row['foto'];
+    } */
+
     function updateData(){
         $query = "UPDATE ".$this->table_name." SET diaDeLaSemana=". $this->diaDeLaSemana . "," .
         " hora='". $this->hora . ":00',".
@@ -99,7 +119,7 @@ class Horario{
         " profesor=" . $this->profesor . "," .
         " curso=" . $this->curso . "," .
         " grupo=" . $this->grupo . "," .
-        " salon=" . $this->salon . "," .
+        " salon=" . $this->salon . 
         " WHERE id = " .$this->id. ";";
         $stmt = $this->conn->prepare($query);
         if($stmt->execute()){
