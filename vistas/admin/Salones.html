@@ -19,11 +19,13 @@
                 <img src="" alt="" class="rounded-circle userfoto">
                 <p id="username"></p>
             </div>
-            
+
             <div class="list-group list-group-flush">
-                <a href="/vistas/admin/horarios.html" class="list-group-item list-group-item-action bg-light">Horarios</a>
+                <a href="/vistas/admin/horarios.html"
+                    class="list-group-item list-group-item-action bg-light">Horarios</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light active">Salones</a>
-                <a href="/vistas/admin/Docentes.html" class="list-group-item list-group-item-action bg-light">Docentes</a>
+                <a href="/vistas/admin/Docentes.html"
+                    class="list-group-item list-group-item-action bg-light">Docentes</a>
                 <a href="/vistas/admin/Grupos.html" class="list-group-item list-group-item-action bg-light">Grupos</a>
                 <a href="/vistas/admin/Cursos.html" class="list-group-item list-group-item-action bg-light">Cursos</a>
             </div>
@@ -48,10 +50,63 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    salones
+                    <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Salones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add" role="tab" aria-controls="add"
+                                aria-selected="false">Agregar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false"
+                                style="visibility: hidden;">Modificar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="delete" href="#" class="" style="visibility: hidden;">Borrar</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    salones
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Edificio</th>
+                                        <th>Ubicacion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edificio">Edificio:</label>
+                                    <input type="text" class="form-control" id="edificio">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ubi">Ubicacion:</label>
+                                    <input type="textarea" class="form-control" id="ubi">
+                                </div>
+                                <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
+                            </div>
+
+                            <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
+
+                            </div>
+
+
+                    </div>
                 </div>
             </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
