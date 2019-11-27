@@ -23,15 +23,36 @@ class Horario{
         return $stmt;
     }
 
+    function valSalon(){
+        $query =  "SELECT * FROM ".$this->table_name. " WHERE salon='" . $this->salon . "' AND hora='" . $this->hora . ":00';"; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function valGrupo(){
+        $query =  "SELECT * FROM ".$this->table_name. " WHERE grupo='" . $this->grupo . "' AND hora='" . $this->hora . ":00';"; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function valProf(){
+        $query =  "SELECT * FROM ".$this->table_name. " WHERE profesor='" . $this->profesor . "' AND hora='" . $this->hora . ":00';"; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function create(){
         $query = "INSERT INTO " . $this->table_name . "(diaDeLaSemana,hora,cicloEscolar,profesor,curso,grupo,salon) ". 
-        "VALUES (". $this->diaDeLaSemana . ",".
+        "VALUES ('". $this->diaDeLaSemana . "',".
         "'". $this->hora . ":00',".
         "'". $this->cicloEscolar . "',".
-        $this->profesor . ",".
-        $this->curso . ",".
-        $this->grupo . ",".
-        $this->salon . ");";
+        "'". $this->profesor . "',".
+        "'". $this->curso . "',".
+        "'". $this->grupo . "',".
+        "'". $this->salon . "');";
         $stmt = $this->conn->prepare($query);
         if($stmt->execute()){
             return true;
@@ -40,7 +61,7 @@ class Horario{
     }
 
     function readByProf(){
-        $query =  "SELECT * FROM ".$this->table_name. "WHERE profesor=" . $this->profesor . ";"; 
+        $query =  "SELECT * FROM ".$this->table_name. " WHERE profesor=" . $this->profesor . ";"; 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

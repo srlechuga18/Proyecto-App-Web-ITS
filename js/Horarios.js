@@ -2,38 +2,21 @@ $(document).ready(function () {
 
     let base = window.location.origin;
     let id = localStorage.getItem("id");
-    //trae datos del usuario actual
     $.ajax({
         url: base + "/api/usuarios/" + id,
         type: "GET",
         success: function (result) {
-            //pone foto y nombre del usuario
+            console.log(result);
             $(".userfoto").attr("src", "/api/public/img/" + result.foto);
             $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
 
-            //trae todos los usuarios 
             $.ajax({
-                url: base + "/api/usuarios",
+                url:"/api/horarios",
                 type: "GET",
                 success: function (resulta2) {
                     //los pone en la tabla
                     resulta2.records.forEach(element => {
-                        var category;
-                        console.log(element.category);
                         
-                        switch (element.category) {
-                            case '1':
-                                category = "Admin";
-                                break;
-                            case '2':
-                                category = "Profesor";
-                                break;
-                            case '3':
-                                category = "Prefecto";
-                                break;
-                            default:
-                                break;
-                        }
                         $('tbody').append(
                             "<tr class='clickable-row' data-id=" + element.id + ">" +
                             "<td style='padding: 1px'><img src='/api/public/img/" + element.foto + "' alt='' class='rounded-circle' height='45px' width='45px'></td>" +
@@ -64,7 +47,7 @@ $(document).ready(function () {
                             let usrid = $(this).data("id");
 
                             //click en modificar
-                            $('.card-header ul').children('li').eq(2).children('a').off();
+                            /* $('.card-header ul').children('li').eq(2).children('a').off();
                             $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
 
                                 e.preventDefault()
@@ -81,32 +64,6 @@ $(document).ready(function () {
                                         $('.tab-pane#modify #apellidoPaterno2').val(n.apellidoPaterno);
                                         $('.tab-pane#modify #apellidoMaterno2').val(n.apellidoMaterno);
                                         $('.tab-pane#modify #turno2').val(n.turno);
-
-                                        //modify password
-                                        $('#modify-pwd-btn').click(function (x) {
-                                            let pswd = $('.tab-pane#modify #pswd').val();
-                                            let pwd2 = $('.tab-pane#modify #pwd2').val();
-                                            if (pswd == pwd2) {
-                                                $.ajax({
-                                                    url: base + "/api/usuarios/" + usrid,
-                                                    type: "PATCH",
-                                                    data: JSON.stringify({
-                                                        'pass': pswd
-                                                    }),
-                                                    success: function (x) {
-                                                        alert("contraseña modificada");
-                                                        window.location.reload();
-                                                    },
-                                                    error: function (x) {
-                                                        alert("error al modificar la contraseña");
-                                                    }
-                                                });
-                                            } else {
-                                                alert("Las contraseñas no coinciden");
-                                                $('.tab-pane#modify #pswd').val('');
-                                                $('.tab-pane#modify #pwd2').val('');
-                                            }
-                                        });
 
                                         //modify data
                                         $('#modify-dts-btn').click(function (x) {
@@ -136,30 +93,6 @@ $(document).ready(function () {
                                             });
                                         });
 
-                                        //modify foto
-                                        $('#modify-pic-btn').click(function (x) {
-                                            let file = document.querySelector('#modify input[type=file]').files[0];
-                                            var reader = new FileReader();
-                                            reader.readAsDataURL(file);
-                                            reader.onloadend = function () {
-                                                $.ajax({
-                                                    url: base + "/api/usuarios/" + usrid,
-                                                    type: "PATCH",
-                                                    dataType: 'json',
-                                                    data: JSON.stringify({
-                                                        'foto': reader.result
-                                                    }),
-                                                    success: function (x) {
-                                                        console.log(x);
-                                                        alert("foto modificada");
-                                                        window.location.reload();
-                                                    },
-                                                    error: function (y) {
-                                                        alert("error al modificar la foto");
-                                                    }
-                                                });
-                                            }
-                                        });
                                     },
                                     error: function (n) {
                                         alert("error al cargar usuarios");
@@ -167,9 +100,9 @@ $(document).ready(function () {
                                 });
 
                             });
-
+ */
                             //click en borrar
-                            $('.card-header ul').children('li').eq(3).children('a').off();
+                            /* $('.card-header ul').children('li').eq(3).children('a').off();
                             $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
                                 e.preventDefault()
                                 $(this).tab('show')
@@ -187,7 +120,7 @@ $(document).ready(function () {
                                         }
                                     });
                                 });
-                            });
+                            }); */
                         }
                     });
 
@@ -198,42 +131,77 @@ $(document).ready(function () {
             });
 
             $('#add-btn').click(function (x) {
-
-                let pass = $('.tab-pane#add #pwd').val();
-                let email = $('.tab-pane#add #email').val();
-                let nombre = $('.tab-pane#add #usr').val();
-                let apellidoPaterno = $('.tab-pane#add #apellidoPaterno').val();
-                let apellidoMaterno = $('.tab-pane#add #apellidoMaterno').val();
-                let turno = $('.tab-pane#add #turno').val();
-                let category = $('.tab-pane#add #cat').val();
-                let file = document.querySelector('#add input[type=file]').files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onloadend = function () {
-                    $.ajax({
-                        url: base + "/api/usuarios",
-                        type: "POST",
-                        dataType: 'json',
-                        data: JSON.stringify({
-                            'pass': pass,
-                            'email': email,
-                            'nombre': nombre,
-                            'apellidoPaterno': apellidoPaterno,
-                            'apellidoMaterno': apellidoMaterno,
-                            'turno': turno,
-                            'foto': reader.result,
-                            'category': category
-                        }),
-                        success: function (x) {
-                            console.log(x);
-                            alert("usuario creado");
-                            window.location.reload();
-                        },
-                        error: function (y) {
-                            alert("error al crear el usuario");
-                        }
-                    });
-                }
+                let dow = $('.tab-pane#add #dow').val();
+                let hora = $('.tab-pane#add #hora').val();
+                let cicloEscolar = $('.tab-pane#add #cicloEscolar').val();
+                let profesor = $('.tab-pane#add #profesor').val();
+                let curso = $('.tab-pane#add #curso').val();
+                let grupo = $('.tab-pane#add #grupo').val();
+                let salon = $('.tab-pane#add #salon').val();
+                //validar salon hora
+                $.ajax({
+                    url: base + "/api/validate/salon",
+                    type: "POST",
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        'salon': salon,
+                        'hora': hora
+                    }),
+                    success: function (x) {
+                        $.ajax({
+                            url: base + "/api/validate/grupo",
+                            type: "POST",
+                            dataType: 'json',
+                            data: JSON.stringify({
+                                'grupo': grupo,
+                                'hora': hora
+                            }),
+                            success: function (x) {
+                                $.ajax({
+                                    url: base + "/api/validate/profesor",
+                                    type: "POST",
+                                    dataType: 'json',
+                                    data: JSON.stringify({
+                                        'profesor': profesor,
+                                        'hora': hora
+                                    }),
+                                    success: function (x) {
+                                        $.ajax({
+                                            url: base + "/api/horarios",
+                                            type: "POST",
+                                            dataType: 'json',
+                                            data: JSON.stringify({
+                                                'diaDeLaSemana': dow,
+                                                'hora': hora,
+                                                'cicloEscolar': cicloEscolar,
+                                                'profesor': profesor,
+                                                'curso': curso,
+                                                'grupo': grupo,
+                                                'salon': salon
+                                            }),
+                                            success: function (x) {
+                                                alert("horario creado");
+                                                window.location.reload();
+                                            },
+                                            error: function (y) {
+                                                alert("error al crear el horario");
+                                            }
+                                        });
+                                    },
+                                    error: function (y) {
+                                        alert('Este profesor se encuentra ocupado');
+                                    }
+                                });
+                            },
+                            error: function (y) {
+                                alert('Este grupo se encuentra ocupado');
+                            }
+                        });
+                    },
+                    error: function (y) {
+                        alert('Este salon se encuentra ocupado');
+                    }
+                });
 
             });
 
@@ -246,7 +214,6 @@ $(document).ready(function () {
 
 });
 
-//cambiar entre tabs 
 $('#crud a').click(function (e) {
     e.preventDefault()
     if ($('.table .clickable-row').hasClass('bg-info')) {
@@ -254,16 +221,81 @@ $('#crud a').click(function (e) {
     }
     $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
     $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
-    $(this).tab('show')
+
+    $(this).tab('show');
+    $.ajax({
+        url: "/api/usuarios",
+        type: "GET",
+        success: function (result) {
+            result.records.forEach(element => {
+                if (element.category == 2) {
+                    $('.card-body #add #profesor').append(
+                        "<option value=" + element.id + ">"
+                        + element.nombre + " " + element.apellidoPaterno + " " + element.apellidoMaterno +
+                        "</option>"
+                    );
+                }
+            });
+        },
+        error: function (resp) {
+            alert("error al consultar profesores");
+        }
+    });
+    $.ajax({
+        url: "/api/cursos",
+        type: "GET",
+        success: function (result) {
+            result.records.forEach(element => {
+                $('.card-body #add #curso').append(
+                    "<option value=" + element.id + ">"
+                    + element.nombre +
+                    "</option>"
+                );
+            });
+        },
+        error: function (resp) {
+            alert("error al consultar cursos");
+        }
+    });
+    $.ajax({
+        url: "/api/grupos",
+        type: "GET",
+        success: function (result) {
+            result.records.forEach(element => {
+                $('.card-body #add #grupo').append(
+                    "<option value=" + element.id + ">"
+                    + element.semestre + " " + element.nombre +
+                    "</option>"
+                );
+            });
+        },
+        error: function (resp) {
+            alert("error al consultar cursos");
+        }
+    });
+    $.ajax({
+        url: "/api/salones",
+        type: "GET",
+        success: function (result) {
+            result.records.forEach(element => {
+                $('.card-body #add #salon').append(
+                    "<option value=" + element.id + ">"
+                    + element.nombre + " " + element.edificio +
+                    "</option>"
+                );
+            });
+        },
+        error: function (resp) {
+            alert("error al consultar cursos");
+        }
+    });
 });
 
-//side panel
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
 
-//log out
 $("#log-out").click(function (x) {
     localStorage.removeItem("id");
     window.location.href = "/";

@@ -64,7 +64,16 @@ body{
     margin-right: auto;
 }
 
-#salones #modify .form-group,#grupos #modify .form-group,#cursos #modify .form-group, #horarios #modify .form-group{
+
+#salones #modify .form-group,#grupos #modify .form-group,#cursos #modify .form-group{
+    display: flex;
+    width: 70%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#horarios #modify .form-group{
     display: flex;
     width: 70%;
     position: relative;
@@ -88,10 +97,24 @@ body{
     text-align: right;
 }
 
-#salones #modify .form-group label,#cursos #modify .form-group label,#grupos #modify .form-group label,#horarios #modify .form-group label{
+#horarios #add .form-group label{
+    margin: 0px 5px;
+    line-height: 35px;
+    width: 40%;
+    text-align: right;
+}
+
+#salones #modify .form-group label,#cursos #modify .form-group label,#grupos #modify .form-group label{
     margin: 0px 5px;
     line-height: 35px;
     width: 30%;
+    text-align: right;
+}
+
+#horarios #modify .form-group label{
+    margin: 0px 5px;
+    line-height: 35px;
+    width: 40%;
     text-align: right;
 }
 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/global.css">
     <link href="../../css/simple-sidebar.css" rel="stylesheet">
     <link href="../../css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../DataTables/datatables.min.css" />
 </head>
 
 <body id="horarios">
@@ -48,66 +49,175 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" id="crud" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#description" role="tab" aria-controls="description"
-                                aria-selected="true">Description</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#history" role="tab" aria-controls="history"
-                                aria-selected="false">History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#deals" role="tab" aria-controls="deals"
-                                aria-selected="false">Deals</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#deals" role="tab" aria-controls="deals"
-                                aria-selected="false">Deals</a>
-                        </li>
-                    </ul>
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                    aria-selected="true">Horarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#add" role="tab" aria-controls="add"
+                                    aria-selected="false">Agregar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#modify" role="tab" aria-controls="modify"
+                                    aria-selected="false" style="visibility: hidden;">Modificar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="delete" href="#" class="" style="visibility: hidden;">Borrar</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-body">
-                    horarios
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Dia de la semana</th>
+                                        <th>Hora</th>
+                                        <th>Foto</th>
+                                        <th>Profesor</th>
+                                        <th>Salon</th>
+                                        <th>Curso</th>
+                                        <th>Grupo</th>
+                                        <th>Ciclo Escolar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
+                            <div class="form-group">
+                                <label for="dow">Dia de la semana:</label>
+                                <select class="form-control" id="dow">
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miercoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora">Hora:</label>
+                                <select class="form-control" id="hora">
+                                    <option value="7:45">7:45 am</option>
+                                    <option value="8:30">8:30 am</option>
+                                    <option value="9:15">9:15 am</option>
+                                    <option value="10:00">10:00 am</option>
+                                    <option value="10:45">10:45 am</option>
+                                    <option value="11:45">11:45 am</option>
+                                    <option value="12:30">12:30 am</option>
+                                    <option value="13:15">13:15 am</option>
+                                    <option value="14:00">14:00 am</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cicloEscolar">Ciclo Escolar:</label>
+                                <input type="text" class="form-control" id="cicloEscolar">
+                            </div>
+                            <div class="form-group">
+                                <label for="profesor">Profesor:</label>
+                                <select class="form-control" id="profesor">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="curso">Curso:</label>
+                                <select class="form-control" id="curso">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="grupo">Grupo:</label>
+                                <select class="form-control" id="grupo">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="salon">Salon:</label>
+                                <select class="form-control" id="salon">
+                                </select>
+                            </div>
+                            <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
+                        </div>
+
+                        <div class="tab-pane" id="modify" role="tabpanel" aria-labelledby="modify-tab">
+                            <div class="form-group">
+                                <label for="mod-dow">Dia de la semana:</label>
+                                <select class="form-control" id="mod-dow">
+                                    <option value="Lunes">Lunes</option>
+                                    <option value="Martes">Martes</option>
+                                    <option value="Miercoles">Miercoles</option>
+                                    <option value="Jueves">Jueves</option>
+                                    <option value="Viernes">Viernes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-hora">Hora:</label>
+                                <select class="form-control" id="mod-hora">
+                                    <option value="7:45">7:45 am</option>
+                                    <option value="8:30">8:30 am</option>
+                                    <option value="9:15">9:15 am</option>
+                                    <option value="10:00">10:00 am</option>
+                                    <option value="10:45">10:45 am</option>
+                                    <option value="11:45">11:45 am</option>
+                                    <option value="12:30">12:30 am</option>
+                                    <option value="13:15">13:15 am</option>
+                                    <option value="14:00">14:00 am</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-cicloEscolar">Ciclo Escolar:</label>
+                                <input type="text" class="form-control" id="mod-cicloEscolar">
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-profesor">Profesor:</label>
+                                <select class="form-control" id="mod-profesor">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-curso">Curso:</label>
+                                <select class="form-control" id="mod-curso">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-grupo">Grupo:</label>
+                                <select class="form-control" id="mod-grupo">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mod-salon">Salon:</label>
+                                <select class="form-control" id="mod-salon">
+                                </select>
+                            </div>
+                            <Button type="submit" class="btn btn-primary" id="add-btn">Guardar</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            Desea Borrar el horario?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary">Si</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
+    <script src="../../js/Horarios.js"></script>
 
-    <script>
-        $(document).ready(function () {
-
-            let base = window.location.origin;
-            let id = localStorage.getItem("id");
-            $.ajax({
-                url: base + "/api/usuarios/" + id,
-                type: "GET",
-                success: function (result) {
-                    console.log(result);
-                    $(".userfoto").attr("src", "/api/public/img/" + result.foto);
-                    $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
-
-                },
-                error: function (resp) {
-                    alert("inicie sesion");
-                    window.location.href = "/";
-                }
-            });
-
-        });
-
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-
-        $("#log-out").click(function (x) {
-            localStorage.removeItem("id");
-            window.location.href = "/";
-        });
-    </script>
 </body>
 
 </html>

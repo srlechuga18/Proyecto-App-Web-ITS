@@ -1,7 +1,7 @@
-<?php 
+<?php
 if (isset($_GET["url"])) {
     $item = $_GET["url"];
-    $number = intval(preg_replace('/[^0-9]+/','',$item),10);
+    $number = intval(preg_replace('/[^0-9]+/', '', $item), 10);
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             switch ($item) {
@@ -63,6 +63,15 @@ if (isset($_GET["url"])) {
                 case 'login':
                     include_once('./controladores/usuarios/login.php');
                     break;
+                case 'validate/salon':
+                    include_once('./controladores/horarios/valSalon.php');
+                    break;
+                case 'validate/grupo':
+                    include_once('./controladores/horarios/valGrupo.php');
+                    break;
+                case 'validate/profesor':
+                    include_once('./controladores/horarios/valProf.php');
+                    break;
                 default:
                     http_response_code(400);
                     break;
@@ -116,7 +125,6 @@ if (isset($_GET["url"])) {
             http_response_code(405);
             break;
     }
-}else {
+} else {
     http_response_code(40);
 }
-?>

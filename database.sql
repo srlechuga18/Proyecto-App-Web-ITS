@@ -70,3 +70,9 @@ INSERT INTO usuario(pass,email,nombre,apellidoPaterno,apellidoMaterno,turno,foto
 select count(*) from <table> where username = @username and password = MD5(@password)
 
 select max(id) from usuario;
+
+SELECT h.hora,CONCAT(s.nombre,s.edificio) as salon, c.nombre as curso, c.semestre as cursoSemestre, CONCAT(g.nombre,g.semestre), h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) 
+FROM horario h, salon s, curso c, grupo g, usuario p 
+where h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id;
+
+SELECT p.nombre, c.nombre as category FROM usuario p, category c where p.category = c.id;
