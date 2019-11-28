@@ -8,9 +8,9 @@ $(document).ready(function () {
             $(".userfoto").attr("src", "/api/public/img/" + result.foto);
             $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
             console.log(id);
-            
+
             $.ajax({
-                url: "/api/usuarios/horario/"+id,
+                url: "/api/usuarios/horario/" + id,
                 type: "GET",
                 success: function (resulta2) {
                     //los pone en la tabla
@@ -52,6 +52,8 @@ $(document).ready(function () {
                     alert("No se encontrarn horarios");
                 }
             });
+
+
         },
         error: function (resp) {
             alert("inicie sesion");
@@ -59,14 +61,16 @@ $(document).ready(function () {
         }
     });
 
+
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-    
+
     $("#log-out").click(function (x) {
-        localStorage.removeItem("id");
+        x.preventDefault();
         window.location.href = "/";
+        localStorage.removeItem("id");
     });
 
 });

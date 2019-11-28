@@ -65,8 +65,9 @@ $(document).ready(function () {
     });
     
     $("#log-out").click(function (x) {
-        localStorage.removeItem("id");
+        x.preventDefault();
         window.location.href = "/";
+        localStorage.removeItem("id");
     });
 
 });

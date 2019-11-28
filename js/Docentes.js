@@ -265,6 +265,7 @@ $("#menu-toggle").click(function (e) {
 
 //log out
 $("#log-out").click(function (x) {
-    localStorage.removeItem("id");
+    x.preventDefault();
     window.location.href = "/";
+    localStorage.removeItem("id");
 });
