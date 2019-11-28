@@ -35,6 +35,16 @@ class Horario{
         return $stmt;
     }
 
+    function readByProf(){
+        $query =  
+        "SELECT h.id,h.hora,h.diaDeLaSemana,CONCAT(s.nombre,' ',s.edificio) as salon, c.nombre as curso, CONCAT(g.semestre,' ',g.nombre) as grupo, h.cicloEscolar, p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as profesor".
+        " FROM horario h, salon s, curso c, grupo g, usuario p". 
+        " WHERE h.profesor = p.id and h.salon = s.id and h.curso = c.id and h.grupo = g.id and h.profesor = " . $this->profesor . ";"; 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function valSalon(){
         $query =  "SELECT id FROM ".$this->table_name. " WHERE salon='" . $this->salon . "' AND hora='" . $this->hora . ":00' AND diaDeLaSemana=" . $this->diaDeLaSemana .";"; 
         $stmt = $this->conn->prepare($query);
@@ -72,12 +82,12 @@ class Horario{
         return false;
     }
 
-    function readByProf(){
+/*     function readByProf(){
         $query =  "SELECT * FROM ".$this->table_name. " WHERE profesor=" . $this->profesor . ";"; 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
-    }
+    } */
 
     function readOne(){
         $query = "SELECT * FROM ".$this->table_name." WHERE id = '".$this->id."';";

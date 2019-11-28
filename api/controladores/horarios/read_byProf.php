@@ -25,7 +25,8 @@
                 "profesor" => $profesor,
                 "curso" => $curso,
                 "grupo" => $grupo,
-                "salon" => $salon
+                "salon" => $salon,
+                "foto" => $foto
             );
 
             array_push($horario_arr["records"],$horario_item);
@@ -36,7 +37,7 @@
         http_response_code(404);
  
         echo json_encode(
-            array("message" => "No users found.")
+           $number
         );
     }
 

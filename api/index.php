@@ -11,7 +11,7 @@ if (isset($_GET["url"])) {
                 case "usuarios/$number":
                     include_once('./controladores/usuarios/read_one.php');
                     break;
-                case "usuarios/$number/horario":
+                case "usuarios/horario/$number":
                     include_once('./controladores/horarios/read_byProf.php');
                     break;
                 case "grupos":

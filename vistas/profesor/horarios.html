@@ -2,26 +2,26 @@
 <html lang="en">
 
 <head>
-    <title>Admin: horarios</title>
+    <title>Profesor: horarios</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/global.css">
     <link href="../../css/simple-sidebar.css" rel="stylesheet">
     <link href="../../css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../DataTables/datatables.min.css" />
 </head>
 
 <body id="horarios">
-    <div class="d-flex" id="wrapper">
+    <div class="d-flex toggled" id="wrapper">
         <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Profesor </div>
+            <div class="sidebar-heading">
+                <img src="" alt="" class="rounded-circle userfoto">
+                <p id="username"></p>
+            </div>
+
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+                <a href="#" class="list-group-item list-group-item-action bg-light active">Horarios</a>
             </div>
         </div>
         <div id="page-content-wrapper">
@@ -44,26 +44,43 @@
 
             <div class="card text-center">
                 <div class="card-header">
-                    horarios
+                    <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Horarios</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    horarios
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane active" id="show" role="tabpanel">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Dia de la semana</th>
+                                        <th>Hora</th>
+                                        <th>Foto</th>
+                                        <th>Profesor</th>
+                                        <th>Salon</th>
+                                        <th>Curso</th>
+                                        <th>Grupo</th>
+                                        <th>Ciclo Escolar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="overlay"></div>
     </div>
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
-
-    <script>
-
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
+    <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
+    <script src="../../js/Profesor.js"></script>
 </body>
 
 </html>
