@@ -1,8 +1,8 @@
-body{
+body {
     background: #888888;
 }
 
-footer{
+footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -11,19 +11,19 @@ footer{
     text-align: center;
 }
 
-.footer{
+.footer {
     width: 75%;
     margin-left: auto;
     margin-right: auto;
 }
 
-footer p{
+footer p {
     margin-bottom: 29px;
     margin-left: 15px;
     margin-right: 15px;
 }
 
-.card{
+.card {
     position: absolute;
     width: 365px;
     height: 441px;
@@ -33,7 +33,7 @@ footer p{
     border-radius: 10px;
 }
 
-.card .card-header{
+.card .card-header {
     position: absolute;
     width: 324px;
     height: 150px;
@@ -45,9 +45,16 @@ footer p{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 23px;
+    color: #FFFFFF;
+    padding: 10px 50px;
 }
 
-.card .card-body{
+.card .card-body {
     width: 365px;
     height: 402px;
     background: #E7E7E7;

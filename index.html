@@ -13,7 +13,7 @@
 
     <div class="card text-center">
         <div class="card-header">
-            Instituto X
+            Umbrella Academy
         </div>
         <div class="card-body">
             <input type="text" class="form-control" id="usr" placeholder="correo">
@@ -24,7 +24,7 @@
     <footer>
         <div class="clearfix footer">
             <div class="d-flex flex-row float-left">
-                <p>Instituto X</p>
+                <p>Umbrella Academy</p>
             </div>
             <!-- <div class="d-flex flex-row float-right">
                 <p>Facebook</p>
@@ -39,33 +39,32 @@
 
 </html>
 <script>
-    $(document).ready(function () {            
-    });
+    $(document).ready(function() {});
 
-    $('.btn').click(function () {
+    $('.btn').click(function() {
         let usr = $('#usr').val();
         let pwd = $('#pwd').val();
         let base = window.location.origin;
         $.ajax({
-            url: base+"/api/login",
-            type : "POST",
-            dataType : 'json',
-            data : JSON.stringify({
-                    email : usr,
-                    pass : pwd
-                }),
-            success : function(result) {
+            url: base + "/api/login",
+            type: "POST",
+            dataType: 'json',
+            data: JSON.stringify({
+                email: usr,
+                pass: pwd
+            }),
+            success: function(result) {
                 localStorage.setItem("id", result.id);
                 switch (result.category) {
-                    case '1'://admin                    
+                    case '1': //admin                    
                         window.location.href = "/vistas/admin/horarios.html"
                         break;
-                    case '2'://profesor                    
-                        window.location.href = "/vistas/profesor/horarios.html"    
-                    break;
-                    case '3'://prefecto
-                        window.location.href = "/vistas/prefecto/horarios.html"                        
-                    break;
+                    case '2': //profesor                    
+                        window.location.href = "/vistas/profesor/horarios.html"
+                        break;
+                    case '3': //prefecto
+                        window.location.href = "/vistas/prefecto/horarios.html"
+                        break;
                     default:
                         break;
                 }

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     let base = window.location.origin;
     let id = localStorage.getItem("id");
@@ -6,7 +6,7 @@ $(document).ready(function () {
     $.ajax({
         url: base + "/api/usuarios/" + id,
         type: "GET",
-        success: function (result) {
+        success: function(result) {
             //pone foto y nombre del usuario
             $(".userfoto").attr("src", "/api/public/img/" + result.foto);
             $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
@@ -15,12 +15,12 @@ $(document).ready(function () {
             $.ajax({
                 url: base + "/api/usuarios",
                 type: "GET",
-                success: function (resulta2) {
+                success: function(resulta2) {
                     //los pone en la tabla
                     resulta2.records.forEach(element => {
                         var category;
                         console.log(element.category);
-                        
+
                         switch (element.category) {
                             case '1':
                                 category = "Admin";
@@ -48,14 +48,14 @@ $(document).ready(function () {
                     //les da formato
                     $('.table').DataTable();
                     //highlight de las columnas
-                    $('.table').on('click', '.clickable-row', function (event) {
-                        if ($(this).hasClass('bg-info')) {
-                            $(this).removeClass('bg-info');
+                    $('.table').on('click', '.clickable-row', function(event) {
+                        if ($(this).hasClass('bg-danger')) {
+                            $(this).removeClass('bg-danger');
                             //esconde los botones de modificar y borrar
                             $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
                         } else {
-                            $(this).addClass('bg-info').siblings().removeClass('bg-info');
+                            $(this).addClass('bg-danger').siblings().removeClass('bg-danger');
                             //muestra los botones de modificar y borrar
                             $('.card-header ul').children('li').eq(2).children('a').css("visibility", "visible");
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
                             //click en modificar
                             $('.card-header ul').children('li').eq(2).children('a').off();
-                            $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
+                            $('.card-header ul').children('li').eq(2).children('a').click(function(e) {
 
                                 e.preventDefault()
                                 $(this).tab('show')
@@ -75,7 +75,7 @@ $(document).ready(function () {
                                 $.ajax({
                                     url: base + "/api/usuarios/" + usrid,
                                     type: "GET",
-                                    success: function (n) {
+                                    success: function(n) {
                                         $('.tab-pane#modify #email2').val(n.email);
                                         $('.tab-pane#modify #nombre').val(n.nombre);
                                         $('.tab-pane#modify #apellidoPaterno2').val(n.apellidoPaterno);
@@ -83,7 +83,7 @@ $(document).ready(function () {
                                         $('.tab-pane#modify #turno2').val(n.turno);
 
                                         //modify password
-                                        $('#modify-pwd-btn').click(function (x) {
+                                        $('#modify-pwd-btn').click(function(x) {
                                             let pswd = $('.tab-pane#modify #pswd').val();
                                             let pwd2 = $('.tab-pane#modify #pwd2').val();
                                             if (pswd == pwd2) {
@@ -93,11 +93,11 @@ $(document).ready(function () {
                                                     data: JSON.stringify({
                                                         'pass': pswd
                                                     }),
-                                                    success: function (x) {
+                                                    success: function(x) {
                                                         alert("contraseña modificada");
                                                         window.location.reload();
                                                     },
-                                                    error: function (x) {
+                                                    error: function(x) {
                                                         alert("error al modificar la contraseña");
                                                     }
                                                 });
@@ -109,7 +109,7 @@ $(document).ready(function () {
                                         });
 
                                         //modify data
-                                        $('#modify-dts-btn').click(function (x) {
+                                        $('#modify-dts-btn').click(function(x) {
                                             let email = $('.tab-pane#modify #email2').val();
                                             let nombre = $('.tab-pane#modify #nombre').val();
                                             let apellidoPaterno = $('.tab-pane#modify #apellidoPaterno2').val();
@@ -126,22 +126,22 @@ $(document).ready(function () {
                                                     'email': email,
                                                     'turno': turno
                                                 }),
-                                                success: function (x) {
+                                                success: function(x) {
                                                     alert("datos modificados");
                                                     window.location.reload();
                                                 },
-                                                error: function (x) {
+                                                error: function(x) {
                                                     alert("error al modificar los datos");
                                                 }
                                             });
                                         });
 
                                         //modify foto
-                                        $('#modify-pic-btn').click(function (x) {
+                                        $('#modify-pic-btn').click(function(x) {
                                             let file = document.querySelector('#modify input[type=file]').files[0];
                                             var reader = new FileReader();
                                             reader.readAsDataURL(file);
-                                            reader.onloadend = function () {
+                                            reader.onloadend = function() {
                                                 $.ajax({
                                                     url: base + "/api/usuarios/" + usrid,
                                                     type: "PATCH",
@@ -149,19 +149,19 @@ $(document).ready(function () {
                                                     data: JSON.stringify({
                                                         'foto': reader.result
                                                     }),
-                                                    success: function (x) {
+                                                    success: function(x) {
                                                         console.log(x);
                                                         alert("foto modificada");
                                                         window.location.reload();
                                                     },
-                                                    error: function (y) {
+                                                    error: function(y) {
                                                         alert("error al modificar la foto");
                                                     }
                                                 });
                                             }
                                         });
                                     },
-                                    error: function (n) {
+                                    error: function(n) {
                                         alert("No se encontraron docentes");
                                     }
                                 });
@@ -170,19 +170,19 @@ $(document).ready(function () {
 
                             //click en borrar
                             $('.card-header ul').children('li').eq(3).children('a').off();
-                            $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
+                            $('.card-header ul').children('li').eq(3).children('a').click(function(e) {
                                 e.preventDefault()
                                 $(this).tab('show')
                                 $('.modal').modal();
-                                $('.modal button.btn-primary').click(function (params) {
+                                $('.modal button.btn-primary').click(function(params) {
                                     $.ajax({
                                         url: base + "/api/usuarios/" + usrid,
                                         type: "DELETE",
-                                        success: function (x) {
+                                        success: function(x) {
                                             alert("usuario eliminado");
                                             window.location.reload();
                                         },
-                                        error: function (y) {
+                                        error: function(y) {
                                             alert("error al eliminar el usuario");
                                         }
                                     });
@@ -192,12 +192,12 @@ $(document).ready(function () {
                     });
 
                 },
-                error: function (resp) {
+                error: function(resp) {
                     alert("error al cargar usuarios");
                 }
             });
 
-            $('#add-btn').click(function (x) {
+            $('#add-btn').click(function(x) {
 
                 let pass = $('.tab-pane#add #pwd').val();
                 let email = $('.tab-pane#add #email').val();
@@ -209,7 +209,7 @@ $(document).ready(function () {
                 let file = document.querySelector('#add input[type=file]').files[0];
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
-                reader.onloadend = function () {
+                reader.onloadend = function() {
                     $.ajax({
                         url: base + "/api/usuarios",
                         type: "POST",
@@ -224,12 +224,12 @@ $(document).ready(function () {
                             'foto': reader.result,
                             'category': category
                         }),
-                        success: function (x) {
+                        success: function(x) {
                             console.log(x);
                             alert("usuario creado");
                             window.location.reload();
                         },
-                        error: function (y) {
+                        error: function(y) {
                             alert("error al crear el usuario");
                         }
                     });
@@ -238,7 +238,7 @@ $(document).ready(function () {
             });
 
         },
-        error: function (resp) {
+        error: function(resp) {
             alert("inicie sesion");
             window.location.href = "/";
         }
@@ -247,10 +247,10 @@ $(document).ready(function () {
 });
 
 //cambiar entre tabs 
-$('#crud a').click(function (e) {
+$('#crud a').click(function(e) {
     e.preventDefault()
-    if ($('.table .clickable-row').hasClass('bg-info')) {
-        $('.table .clickable-row').removeClass('bg-info');
+    if ($('.table .clickable-row').hasClass('bg-danger')) {
+        $('.table .clickable-row').removeClass('bg-danger');
     }
     $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
     $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
@@ -258,13 +258,13 @@ $('#crud a').click(function (e) {
 });
 
 //side panel
-$("#menu-toggle").click(function (e) {
+$("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
 
 //log out
-$("#log-out").click(function (x) {
+$("#log-out").click(function(x) {
     x.preventDefault();
     window.location.href = "/";
     localStorage.removeItem("id");

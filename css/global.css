@@ -1,30 +1,42 @@
-body{
+body {
     background: #B8B8B8;
 }
 
-.navbar{
+.navbar {
     height: 52px;
     background: linear-gradient(180deg, #5B5B5B 0%, rgba(91, 91, 91, 0) 100%);
     color: #ffffff;
 }
 
-.navbar i{
+.navbar i {
     color: #ffffff;
 }
 
-.navbar a{
+.navbar a {
     color: #ffffff;
 }
 
-.card{
+a {
+    color: #ffffff;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 3px;
+}
+
+.card {
     position: relative;
     width: 98%;
     height: 88%;
-    top: 45%;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
 
 .sidebar-heading {
     display: flex;
@@ -34,7 +46,7 @@ body{
     background: #888888;
 }
 
-#sidebar-wrapper p{
+#sidebar-wrapper p {
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -42,21 +54,21 @@ body{
     margin-top: 10px;
 }
 
-#sidebar-wrapper p#username{
+#sidebar-wrapper p#username {
     color: #ffffff;
 }
 
-#sidebar-wrapper .list-group .active{
+#sidebar-wrapper .list-group .active {
     color: #4285F4;
 }
 
-.userfoto{
+.userfoto {
     width: 85px;
     height: 85px;
     box-shadow: 0px 16px 30px rgba(0, 0, 0, 0.3), 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-#add .form-group{
+#add .form-group {
     display: flex;
     width: 70%;
     position: relative;
@@ -64,8 +76,9 @@ body{
     margin-right: auto;
 }
 
-
-#salones #modify .form-group,#grupos #modify .form-group,#cursos #modify .form-group{
+#salones #modify .form-group,
+#grupos #modify .form-group,
+#cursos #modify .form-group {
     display: flex;
     width: 70%;
     position: relative;
@@ -73,7 +86,7 @@ body{
     margin-right: auto;
 }
 
-#horarios #modify .form-group{
+#horarios #modify .form-group {
     display: flex;
     width: 70%;
     position: relative;
@@ -81,43 +94,71 @@ body{
     margin-right: auto;
 }
 
-#docentes #modify .form-group{
+#docentes #modify .form-group {
     margin-bottom: 10px;
 }
 
-.nav-item a{
+.nav-item a {
     display: block;
     padding: .5rem 1rem;
 }
 
-#add .form-group label{
+#add .form-group label {
     margin: 0px 5px;
     line-height: 35px;
     width: 30%;
     text-align: right;
 }
 
-#horarios #add .form-group label{
+#horarios #add .form-group label {
     margin: 0px 5px;
     line-height: 35px;
     width: 40%;
     text-align: right;
 }
 
-#salones #modify .form-group label,#cursos #modify .form-group label,#grupos #modify .form-group label{
+#salones #modify .form-group label,
+#cursos #modify .form-group label,
+#grupos #modify .form-group label {
     margin: 0px 5px;
     line-height: 35px;
     width: 30%;
     text-align: right;
 }
 
-#horarios #modify .form-group label{
+#horarios #modify .form-group label {
     margin: 0px 5px;
     line-height: 35px;
     width: 40%;
     text-align: right;
 }
 
-#add-btn{
+#add-btn {
     margin-top: 10px;
+}
+
+.card-header-tabs {
+    margin-bottom: unset;
+}
+
+.card-header {
+    width: 99%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -25px);
+    background: linear-gradient(90deg, #7F1400 0%, #F05545 100%);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.56);
+    border-radius: 3px;
+}
+
+.card-body {
+    position: relative;
+    top: -25px;
+}
+
+.btn {
+    background: #B71C1C;
+    box-shadow: 0px 2px 2px rgba(156, 39, 176, 0.2);
+    border-radius: 3px;
+    border-color: unset;
 }

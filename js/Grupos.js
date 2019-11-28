@@ -1,19 +1,19 @@
-$(document).ready(function () {
-            
+$(document).ready(function() {
+
     let base = window.location.origin;
     let id = localStorage.getItem("id");
     $.ajax({
         url: base + "/api/usuarios/" + id,
         type: "GET",
-        success: function (result) {
+        success: function(result) {
             console.log(result);
-            $(".userfoto").attr("src","/api/public/img/"+result.foto);
-            $("#username").text(result.nombre +" "+ result.apellidoPaterno +" "+ result.apellidoMaterno);
+            $(".userfoto").attr("src", "/api/public/img/" + result.foto);
+            $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
 
             $.ajax({
                 url: base + "/api/grupos",
                 type: "GET",
-                success: function (resulta2) {
+                success: function(resulta2) {
                     //los pone en la tabla
                     resulta2.records.forEach(element => {
                         $('tbody').append(
@@ -25,14 +25,14 @@ $(document).ready(function () {
                     //les da formato
                     $('.table').DataTable();
                     //highlight de las columnas
-                    $('.table').on('click', '.clickable-row', function (event) {
-                        if ($(this).hasClass('bg-info')) {
-                            $(this).removeClass('bg-info');
+                    $('.table').on('click', '.clickable-row', function(event) {
+                        if ($(this).hasClass('bg-danger')) {
+                            $(this).removeClass('bg-danger');
                             //esconde los botones de modificar y borrar
                             $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
                         } else {
-                            $(this).addClass('bg-info').siblings().removeClass('bg-info');
+                            $(this).addClass('bg-danger').siblings().removeClass('bg-danger');
                             //muestra los botones de modificar y borrar
                             $('.card-header ul').children('li').eq(2).children('a').css("visibility", "visible");
                             $('.card-header ul').children('li').eq(3).children('a').css("visibility", "visible");
@@ -42,7 +42,7 @@ $(document).ready(function () {
 
                             //click en modificar
                             $('.card-header ul').children('li').eq(2).children('a').off();
-                            $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
+                            $('.card-header ul').children('li').eq(2).children('a').click(function(e) {
 
                                 e.preventDefault()
                                 $(this).tab('show')
@@ -52,12 +52,12 @@ $(document).ready(function () {
                                 $.ajax({
                                     url: base + "/api/grupos/" + usrid,
                                     type: "GET",
-                                    success: function (n) {
+                                    success: function(n) {
                                         $('.tab-pane#modify #mod-nombre').val(n.nombre);
                                         $('.tab-pane#modify #mod-semestre').val(n.semestre);
 
                                         //modify data
-                                        $('#mod-btn').click(function (x) {
+                                        $('#mod-btn').click(function(x) {
                                             let nombre = $('.tab-pane#modify #mod-nombre').val();
                                             let semestre = $('.tab-pane#modify #mod-semestre').val();
 
@@ -68,17 +68,17 @@ $(document).ready(function () {
                                                     'nombre': nombre,
                                                     'semestre': semestre
                                                 }),
-                                                success: function (x) {
+                                                success: function(x) {
                                                     alert("datos modificados");
                                                     window.location.reload();
                                                 },
-                                                error: function (x) {
+                                                error: function(x) {
                                                     alert("error al modificar los datos");
                                                 }
                                             });
                                         });
                                     },
-                                    error: function (n) {
+                                    error: function(n) {
                                         alert("error al cargar grupos");
                                     }
                                 });
@@ -87,19 +87,19 @@ $(document).ready(function () {
 
                             //click en borrar
                             $('.card-header ul').children('li').eq(3).children('a').off();
-                            $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
+                            $('.card-header ul').children('li').eq(3).children('a').click(function(e) {
                                 e.preventDefault()
                                 $(this).tab('show')
                                 $('.modal').modal();
-                                $('.modal button.btn-primary').click(function (params) {
+                                $('.modal button.btn-primary').click(function(params) {
                                     $.ajax({
                                         url: base + "/api/grupos/" + usrid,
                                         type: "DELETE",
-                                        success: function (x) {
+                                        success: function(x) {
                                             alert("grupo eliminado");
                                             window.location.reload();
                                         },
-                                        error: function (y) {
+                                        error: function(y) {
                                             alert("error al eliminar el grupo");
                                         }
                                     });
@@ -109,13 +109,13 @@ $(document).ready(function () {
                     });
 
                 },
-                error: function (resp) {
+                error: function(resp) {
                     alert("No se encontraron grupos");
                 }
             });
 
 
-            $('#add-btn').click(function (x) {
+            $('#add-btn').click(function(x) {
                 let nombre = $('.tab-pane#add #nombre').val();
                 let semestre = $('.tab-pane#add #semestre').val();
                 $.ajax({
@@ -126,19 +126,19 @@ $(document).ready(function () {
                         'nombre': nombre,
                         'semestre': semestre
                     }),
-                    success: function (x) {
+                    success: function(x) {
                         console.log(x);
                         alert("grupo creado");
                         window.location.reload();
                     },
-                    error: function (y) {
+                    error: function(y) {
                         alert("error al crear el grupo");
                     }
                 });
 
             });
         },
-        error: function (resp) {
+        error: function(resp) {
             alert("inicie sesion");
             window.location.href = "/";
         }
@@ -146,22 +146,22 @@ $(document).ready(function () {
 
 });
 
-$('#crud a').click(function (e) {
+$('#crud a').click(function(e) {
     e.preventDefault()
-    if ($('.table .clickable-row').hasClass('bg-info')) {
-        $('.table .clickable-row').removeClass('bg-info');
+    if ($('.table .clickable-row').hasClass('bg-danger')) {
+        $('.table .clickable-row').removeClass('bg-danger');
     }
     $('.card-header ul').children('li').eq(2).children('a').css("visibility", "hidden");
     $('.card-header ul').children('li').eq(3).children('a').css("visibility", "hidden");
     $(this).tab('show')
 });
 
-$("#menu-toggle").click(function (e) {
+$("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
 
-$("#log-out").click(function (x) {
+$("#log-out").click(function(x) {
     x.preventDefault();
     window.location.href = "/";
     localStorage.removeItem("id");
