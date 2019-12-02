@@ -23,7 +23,8 @@
             <div class="list-group list-group-flush">
                 <a href="#" class="list-group-item list-group-item-action bg-light active">Horarios</a>
                 <a href="/vistas/admin/Salones.html" class="list-group-item list-group-item-action bg-light">Salones</a>
-                <a href="/vistas/admin/Docentes.html" class="list-group-item list-group-item-action bg-light">Docentes</a>
+                <a href="/vistas/admin/Docentes.html"
+                    class="list-group-item list-group-item-action bg-light">Docentes</a>
                 <a href="/vistas/admin/Grupos.html" class="list-group-item list-group-item-action bg-light">Grupos</a>
                 <a href="/vistas/admin/Cursos.html" class="list-group-item list-group-item-action bg-light">Cursos</a>
             </div>
@@ -52,13 +53,16 @@
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#show" role="tab" aria-controls="show" aria-selected="true">Horarios</a>
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Horarios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#add" role="tab" aria-controls="add" aria-selected="false">Agregar</a>
+                            <a class="nav-link" href="#add" role="tab" aria-controls="add"
+                                aria-selected="false">Agregar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false" style="visibility: hidden;">Modificar</a>
+                            <a class="nav-link" href="#modify" role="tab" aria-controls="modify" aria-selected="false"
+                                style="visibility: hidden;">Modificar</a>
                         </li>
                         <li class="nav-item">
                             <a id="delete" href="#" class="" style="visibility: hidden;">Borrar</a>
@@ -68,8 +72,16 @@
                 <div class="card-body">
                     <div class="tab-content mt-3">
                         <div class="tab-pane active" id="show" role="tabpanel">
+                            <div class="form-group" style="display: flex; justify-content: center;">
+                                <label for="profesor-show"
+                                    style="margin: 0px 5px; line-height: 35px; text-align: right;">Profesor:</label>
+                                <select class="form-control" id="profesor-show" style="width: 50%;">
+                                    <option value="todos">Todos</option>
+                                </select>
+                                <Button type="submit" class="btn btn-primary" id="show-btn">Buscar</Button>
+                            </div>
                             <table class="table table-hover">
-                                <thead>
+                                <!-- <thead>
                                     <tr>
                                         <th>Dia de la semana</th>
                                         <th>Hora</th>
@@ -80,7 +92,20 @@
                                         <th>Grupo</th>
                                         <th>Ciclo Escolar</th>
                                     </tr>
-                                </thead>
+                                </thead> -->
+                                <thead>
+                                        <tr>
+                                            <th>Profesor</th>
+                                            <th>Curso</th>
+                                            <th>Grupo</th>
+                                            <th>Ciclo Escolar</th>
+                                            <th>L</th>
+                                            <th>M</th>
+                                            <th>M</th>
+                                            <th>J</th>
+                                            <th>V</th>
+                                        </tr>
+                                    </thead>
                                 <tbody>
                                 </tbody>
                             </table>
@@ -113,7 +138,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="cicloEscolar">Ciclo Escolar:</label>
-                                <input type="text" class="form-control" id="cicloEscolar">
+                                <select class="form-control" id="cicloEscolar">
+                                    <option value="ago-dic">ago-dic</option>
+                                    <option value="ene-jul">ene-jul</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="profesor">Profesor:</label>
@@ -193,7 +221,8 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-body">

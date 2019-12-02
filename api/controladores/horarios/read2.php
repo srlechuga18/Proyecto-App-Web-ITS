@@ -9,36 +9,26 @@
     $db = $database->getConnection();
     $horario = new Horario($db);
 
-    $stmt = $horario->readProf();
+    $stmt = $horario->read();
     $num = $stmt->rowCount();
     if ($num>0) {
         $horario_arr=array();
         $horario_arr["records"]=array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $prof_item=array(
+            $horario_item=array(
                 "id" => $id,
-                "foto" => $foto,
-                "nombre" => $nombre,
-                "cursos" => array()
+                "diaDeLaSemana" => $diaDeLaSemana,
+                "hora" => $hora,
+                "cicloEscolar" => $cicloEscolar,
+                "profesor" => $profesor,
+                "curso" => $curso,
+                "grupo" => $grupo,
+                "salon" => $salon,
+                "foto" => $foto
             );
-            $horario->profesor = $id;
-            $stmt2 = $horario->readCursoByProf();
-            $num2 = $stmt2->rowCount();
-            if ($num2>0) {
-                while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-                    extract($row2);
-                    $curso_item = array(
-                        "id" => $id,
-                        "nombre" => $nombre,
-                        "grupos" => array()
-                    );
 
-                    array_push($prof_item["cursos"],$curso_item);
-                }
-            }
-
-            array_push($horario_arr["records"],$prof_item);
+            array_push($horario_arr["records"],$horario_item);
         }
         http_response_code(200);
         echo json_encode($horario_arr);

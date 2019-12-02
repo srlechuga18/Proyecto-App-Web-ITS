@@ -1,0 +1,34 @@
+[
+    {
+        "foto":"",
+        "nombre":"",
+        "materias":[
+            {
+            "nombre":"",
+            "grupos":[
+                {
+                    "nombre":"",
+                    "semestre":"",
+                    "horarios": {    
+                        "ene-jul": [
+                            {
+                                "dow":"",
+                                "hora":"",
+                                "salon": ""
+                            }
+                        ],
+                        "ago-dic": [
+                            {
+                                "dow":"",
+                                "hora":"",
+                                "salon": ""
+                            }
+                        ]
+                    }
+                }
+            ]
+            },
+        ]
+    },
+    {}
+]

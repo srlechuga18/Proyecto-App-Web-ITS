@@ -45,6 +45,20 @@ class Horario{
         return $stmt;
     }
 
+    function readProf(){
+        $query = "select distinct p.id,p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as nombre from horario h, usuario p where h.profesor = p.id;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readCursoByProf(){
+        $query = "select c.id,c.nombre from curso c, horario h where h.profesor = '".$this->profesor."' and h.curso = c.id;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function valSalon(){
         $query =  "SELECT id FROM ".$this->table_name. " WHERE salon='" . $this->salon . "' AND hora='" . $this->hora . ":00' AND diaDeLaSemana=" . $this->diaDeLaSemana .";"; 
         $stmt = $this->conn->prepare($query);
