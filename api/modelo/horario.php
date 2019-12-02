@@ -52,6 +52,13 @@ class Horario{
         return $stmt;
     }
 
+    function readProfbyId(){
+        $query = "select distinct p.id,p.foto, CONCAT(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as nombre from horario h, usuario p where h.profesor = p.id and h.profesor =".$this->profesor.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function readCursoByProf(){
         $query = "select distinct c.id,c.nombre from curso c, horario h where h.profesor = '".$this->profesor."' and h.curso = c.id;";
         $stmt = $this->conn->prepare($query);
