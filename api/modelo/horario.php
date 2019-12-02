@@ -53,7 +53,28 @@ class Horario{
     }
 
     function readCursoByProf(){
-        $query = "select c.id,c.nombre from curso c, horario h where h.profesor = '".$this->profesor."' and h.curso = c.id;";
+        $query = "select distinct c.id,c.nombre from curso c, horario h where h.profesor = '".$this->profesor."' and h.curso = c.id;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readGrupoByCursoProf(){
+        $query = "select distinct g.id, CONCAT(g.semestre,' ',g.nombre) as grupo from horario h, grupo g where h.profesor = ".$this->profesor." and h.curso = ".$this->curso." and h.grupo = g.id;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readCEByGrupoCursoProf(){
+        $query = "select distinct cicloEscolar from horario where profesor = ".$this->profesor." and curso = ".$this->curso." and grupo = ".$this->grupo.";";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readhorarios(){
+        $query = "select h.id,h.diaDeLaSemana as dow,h.hora,CONCAT(s.nombre,' ',s.edificio) as salon from horario h,salon s where h.profesor = ".$this->profesor." and h.curso = ".$this->curso." and h.grupo = ".$this->grupo." and h.cicloEscolar = '".$this->cicloEscolar."' and h.salon = s.id;";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
