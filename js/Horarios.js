@@ -376,6 +376,7 @@ $('.table').on('click', '.clickable-row', function(event) {
                                                 'id': usrid
                                             }),
                                             success: function(x) {
+                                                console.log(dow,hora,cicloEscolar,profesor,curso,grupo,salon);
                                                 $.ajax({
                                                     url: "/api/horarios/" + usrid,
                                                     type: "PATCH",

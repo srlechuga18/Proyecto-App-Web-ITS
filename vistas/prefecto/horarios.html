@@ -49,24 +49,34 @@
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-tabs" id="crud" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#show" role="tab" aria-controls="show" aria-selected="true">Horarios</a>
+                            <a class="nav-link active" href="#show" role="tab" aria-controls="show"
+                                aria-selected="true">Horarios</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content mt-3">
                         <div class="tab-pane active" id="show" role="tabpanel">
+                            <div class="form-group" style="display: flex; justify-content: center;">
+                                <label for="profesor-show"
+                                    style="margin: 0px 5px; line-height: 35px; text-align: right;">Profesor:</label>
+                                <select class="form-control" id="profesor-show" style="width: 50%;">
+                                    <option value="todos">Todos</option>
+                                </select>
+                                <Button type="submit" class="btn btn-primary" id="show-btn">Buscar</Button>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Dia de la semana</th>
-                                        <th>Hora</th>
-                                        <th>Foto</th>
                                         <th>Profesor</th>
-                                        <th>Salon</th>
                                         <th>Curso</th>
                                         <th>Grupo</th>
                                         <th>Ciclo Escolar</th>
+                                        <th>L</th>
+                                        <th>M</th>
+                                        <th>M</th>
+                                        <th>J</th>
+                                        <th>V</th>
                                     </tr>
                                 </thead>
                                 <tbody>
