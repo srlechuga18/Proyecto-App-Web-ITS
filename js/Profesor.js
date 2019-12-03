@@ -74,6 +74,8 @@ $(document).ready(function () {
                     });
         
                     $('.table').DataTable();
+
+                    $('#to-pdf').css('display', 'block');
         
                 },
                 error: function(resp) {
@@ -85,6 +87,14 @@ $(document).ready(function () {
             alert("inicie sesion");
             window.location.href = "/";
         }
+    });
+
+    $('#to-pdf').click(function (e) {
+        var doc = new jsPDF('l','pt','letter',true);
+        doc.autoTable({html: '.table'});
+        
+        doc.save('Horarios.pdf');
+    
     });
 
 

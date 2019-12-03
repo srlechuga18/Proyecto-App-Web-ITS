@@ -57,6 +57,14 @@ $(document).ready(function () {
         localStorage.removeItem("id");
     });
 
+    $('#to-pdf').click(function (e) {
+        var doc = new jsPDF('l','pt','letter',true);
+        doc.autoTable({html: '.table'});
+        
+        doc.save('Horarios.pdf');
+    
+    });
+
     function searchAll(x) {
         $.ajax({
             url: "/api/horarios",
@@ -124,6 +132,8 @@ $(document).ready(function () {
     
     
                 $('.table').DataTable();
+
+                $('#to-pdf').css('display', 'none');
     
             },
             error: function(resp) {
@@ -198,6 +208,7 @@ $(document).ready(function () {
                 });
     
                 $('.table').DataTable();
+                $('#to-pdf').css('display', 'block');
     
             },
             error: function(resp) {

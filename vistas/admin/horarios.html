@@ -80,35 +80,24 @@
                                 </select>
                                 <Button type="submit" class="btn btn-primary" id="show-btn">Buscar</Button>
                             </div>
-                            <table class="table table-hover">
-                                <!-- <thead>
-                                    <tr>
-                                        <th>Dia de la semana</th>
-                                        <th>Hora</th>
-                                        <th>Foto</th>
-                                        <th>Profesor</th>
-                                        <th>Salon</th>
-                                        <th>Curso</th>
-                                        <th>Grupo</th>
-                                        <th>Ciclo Escolar</th>
-                                    </tr>
-                                </thead> -->
-                                <thead>
-                                    <tr>
-                                        <th>Profesor</th>
-                                        <th>Curso</th>
-                                        <th>Grupo</th>
-                                        <th>Ciclo Escolar</th>
-                                        <th>L</th>
-                                        <th>M</th>
-                                        <th>M</th>
-                                        <th>J</th>
-                                        <th>V</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Profesor</th>
+                                            <th>Curso</th>
+                                            <th>Grupo</th>
+                                            <th>Ciclo Escolar</th>
+                                            <th>Lu</th>
+                                            <th>Ma</th>
+                                            <th>Mi</th>
+                                            <th>Ju</th>
+                                            <th>Vi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            <Button type="submit" class="btn btn-primary" id="to-pdf" style="display: none;">PDF</Button>
                         </div>
 
                         <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="add-tab">
@@ -243,6 +232,8 @@
     <script src="../../jquery/jquery-3.4.1.min.js"></script>
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="../../js/jspdf.min.js"></script>
+    <script type="text/javascript" src="../../js/jspdf.plugin.autotable.js"></script>
     <script src="../../js/Horarios.js"></script>
 
 </body>

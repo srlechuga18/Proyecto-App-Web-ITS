@@ -1,18 +1,18 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     let base = window.location.origin;
     let id = localStorage.getItem("id");
     $.ajax({
         url: base + "/api/usuarios/" + id,
         type: "GET",
-        success: function(result) {
+        success: function (result) {
             $(".userfoto").attr("src", "/api/public/img/" + result.foto);
             $("#username").text(result.nombre + " " + result.apellidoPaterno + " " + result.apellidoMaterno);
 
             $.ajax({
                 url: "/api/usuarios",
                 type: "GET",
-                success: function(result) {
+                success: function (result) {
                     result.records.forEach(element => {
                         if (element.category == 2) {
                             $('.card-body #show #profesor-show').append(
@@ -24,14 +24,14 @@ $(document).ready(function() {
                     });
 
                 },
-                error: function(resp) {
+                error: function (resp) {
                     alert("error al consultar profesores");
                 }
             });
 
             searchAll();
 
-            $('#show-btn').click(function(x) {
+            $('#show-btn').click(function (x) {
                 if ($('.card-body #show #profesor-show').val() == 'todos') {
                     searchAll();
                 } else {
@@ -39,7 +39,7 @@ $(document).ready(function() {
                 }
             });
 
-            $('#add-btn').click(function(x) {
+            $('#add-btn').click(function (x) {
                 let dow = $('.tab-pane#add #dow').val();
                 let hora = $('.tab-pane#add #hora').val();
                 let cicloEscolar = $('.tab-pane#add #cicloEscolar').val();
@@ -57,7 +57,7 @@ $(document).ready(function() {
                         'hora': hora,
                         'diaDeLaSemana': dow
                     }),
-                    success: function(x) {
+                    success: function (x) {
                         $.ajax({
                             url: base + "/api/validate/grupo",
                             type: "POST",
@@ -68,7 +68,7 @@ $(document).ready(function() {
                                 'diaDeLaSemana': dow
 
                             }),
-                            success: function(x) {
+                            success: function (x) {
                                 $.ajax({
                                     url: base + "/api/validate/profesor",
                                     type: "POST",
@@ -78,7 +78,7 @@ $(document).ready(function() {
                                         'hora': hora,
                                         'diaDeLaSemana': dow
                                     }),
-                                    success: function(x) {
+                                    success: function (x) {
                                         $.ajax({
                                             url: base + "/api/horarios",
                                             type: "POST",
@@ -92,26 +92,26 @@ $(document).ready(function() {
                                                 'grupo': grupo,
                                                 'salon': salon
                                             }),
-                                            success: function(x) {
+                                            success: function (x) {
                                                 alert("horario creado");
                                                 window.location.reload();
                                             },
-                                            error: function(y) {
+                                            error: function (y) {
                                                 alert("error al crear el horario");
                                             }
                                         });
                                     },
-                                    error: function(y) {
+                                    error: function (y) {
                                         alert('Este profesor se encuentra ocupado');
                                     }
                                 });
                             },
-                            error: function(y) {
+                            error: function (y) {
                                 alert('Este grupo se encuentra ocupado');
                             }
                         });
                     },
-                    error: function(y) {
+                    error: function (y) {
                         alert('Este salon se encuentra ocupado');
                     }
                 });
@@ -119,7 +119,7 @@ $(document).ready(function() {
             });
 
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("inicie sesion");
             window.location.href = "/";
         }
@@ -127,7 +127,7 @@ $(document).ready(function() {
 
 });
 
-$('#crud a').click(function(e) {
+$('#crud a').click(function (e) {
     e.preventDefault()
     if ($('.table .clickable-row').hasClass('bg-danger')) {
         $('.table .clickable-row').removeClass('bg-danger');
@@ -139,7 +139,7 @@ $('#crud a').click(function(e) {
     $.ajax({
         url: "/api/usuarios",
         type: "GET",
-        success: function(result) {
+        success: function (result) {
             $('.card-body #add #profesor').empty();
             result.records.forEach(element => {
                 if (element.category == 2) {
@@ -151,14 +151,14 @@ $('#crud a').click(function(e) {
                 }
             });
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("error al consultar profesores");
         }
     });
     $.ajax({
         url: "/api/cursos",
         type: "GET",
-        success: function(result) {
+        success: function (result) {
             $('.card-body #add #curso').empty();
             result.records.forEach(element => {
                 $('.card-body #add #curso').append(
@@ -168,14 +168,14 @@ $('#crud a').click(function(e) {
                 );
             });
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("error al consultar cursos");
         }
     });
     $.ajax({
         url: "/api/grupos",
         type: "GET",
-        success: function(result) {
+        success: function (result) {
             $('.card-body #add #grupo').empty();
             result.records.forEach(element => {
                 $('.card-body #add #grupo').append(
@@ -185,14 +185,14 @@ $('#crud a').click(function(e) {
                 );
             });
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("error al consultar cursos");
         }
     });
     $.ajax({
         url: "/api/salones",
         type: "GET",
-        success: function(result) {
+        success: function (result) {
             $('.card-body #add #salon').empty();
             result.records.forEach(element => {
                 $('.card-body #add #salon').append(
@@ -202,25 +202,25 @@ $('#crud a').click(function(e) {
                 );
             });
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("error al consultar cursos");
         }
     });
 });
 
-$("#menu-toggle").click(function(e) {
+$("#menu-toggle").click(function (e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
 
-$("#log-out").click(function(x) {
+$("#log-out").click(function (x) {
     x.preventDefault();
     window.location.href = "/";
     localStorage.removeItem("id");
 });
 
 //highlight de las columnas
-$('.table').on('click', '.clickable-row', function(event) {
+$('.table').on('click', '.clickable-row', function (event) {
     if ($(this).hasClass('bg-danger')) {
         $(this).removeClass('bg-danger');
         //esconde los botones de modificar y borrar
@@ -243,7 +243,7 @@ $('.table').on('click', '.clickable-row', function(event) {
         console.log(usrid);
         //click en modificar
         $('.card-header ul').children('li').eq(2).children('a').off();
-        $('.card-header ul').children('li').eq(2).children('a').click(function(e) {
+        $('.card-header ul').children('li').eq(2).children('a').click(function (e) {
 
             e.preventDefault()
             $(this).tab('show')
@@ -252,7 +252,7 @@ $('.table').on('click', '.clickable-row', function(event) {
             $.ajax({
                 url: "/api/usuarios",
                 type: "GET",
-                success: function(result) {
+                success: function (result) {
                     $('.card-body #modify #mod-profesor').empty();
                     result.records.forEach(element => {
                         if (element.category == 2) {
@@ -264,14 +264,14 @@ $('.table').on('click', '.clickable-row', function(event) {
                         }
                     });
                 },
-                error: function(resp) {
+                error: function (resp) {
                     alert("error al consultar profesores");
                 }
             });
             $.ajax({
                 url: "/api/cursos",
                 type: "GET",
-                success: function(result) {
+                success: function (result) {
                     $('.card-body #modify #mod-curso').empty();
                     result.records.forEach(element => {
                         $('.card-body #modify #mod-curso').append(
@@ -281,14 +281,14 @@ $('.table').on('click', '.clickable-row', function(event) {
                         );
                     });
                 },
-                error: function(resp) {
+                error: function (resp) {
                     alert("error al consultar cursos");
                 }
             });
             $.ajax({
                 url: "/api/grupos",
                 type: "GET",
-                success: function(result) {
+                success: function (result) {
                     $('.card-body #modify #mod-grupo').empty();
                     result.records.forEach(element => {
                         $('.card-body #modify #mod-grupo').append(
@@ -298,14 +298,14 @@ $('.table').on('click', '.clickable-row', function(event) {
                         );
                     });
                 },
-                error: function(resp) {
+                error: function (resp) {
                     alert("error al consultar cursos");
                 }
             });
             $.ajax({
                 url: "/api/salones",
                 type: "GET",
-                success: function(result) {
+                success: function (result) {
                     $('.card-body #modify #mod-salon').empty();
                     result.records.forEach(element => {
                         $('.card-body #modify #mod-salon').append(
@@ -315,7 +315,7 @@ $('.table').on('click', '.clickable-row', function(event) {
                         );
                     });
                 },
-                error: function(resp) {
+                error: function (resp) {
                     alert("error al consultar cursos");
                 }
             });
@@ -323,7 +323,7 @@ $('.table').on('click', '.clickable-row', function(event) {
             $.ajax({
                 url: "/api/horarios/" + usrid,
                 type: "GET",
-                success: function(x) {
+                success: function (x) {
                     //los pone en la tabla
                     $('.tab-pane#modify #mod-dow').val(x.diaDeLaSemana);
                     $('.tab-pane#modify #mod-hora').val(x.hora.replace(/:00$/, ""));
@@ -333,7 +333,7 @@ $('.table').on('click', '.clickable-row', function(event) {
                     $('.tab-pane#modify #mod-grupo').val(x.grupo);
                     $('.tab-pane#modify #mod-salon').val(x.salon);
 
-                    $('#mod-btn').click(function(x) {
+                    $('#mod-btn').click(function (x) {
                         let dow = $('.tab-pane#modify #mod-dow').val();
                         let hora = $('.tab-pane#modify #mod-hora').val();
                         let cicloEscolar = $('.tab-pane#modify #mod-cicloEscolar').val();
@@ -352,7 +352,7 @@ $('.table').on('click', '.clickable-row', function(event) {
                                 'diaDeLaSemana': dow,
                                 'id': usrid
                             }),
-                            success: function(x) {
+                            success: function (x) {
                                 $.ajax({
                                     url: "/api/validate/grupo",
                                     type: "POST",
@@ -364,7 +364,7 @@ $('.table').on('click', '.clickable-row', function(event) {
                                         'id': usrid
 
                                     }),
-                                    success: function(x) {
+                                    success: function (x) {
                                         $.ajax({
                                             url: "/api/validate/profesor",
                                             type: "POST",
@@ -375,8 +375,8 @@ $('.table').on('click', '.clickable-row', function(event) {
                                                 'diaDeLaSemana': dow,
                                                 'id': usrid
                                             }),
-                                            success: function(x) {
-                                                console.log(dow,hora,cicloEscolar,profesor,curso,grupo,salon);
+                                            success: function (x) {
+                                                console.log(dow, hora, cicloEscolar, profesor, curso, grupo, salon);
                                                 $.ajax({
                                                     url: "/api/horarios/" + usrid,
                                                     type: "PATCH",
@@ -390,33 +390,33 @@ $('.table').on('click', '.clickable-row', function(event) {
                                                         'grupo': grupo,
                                                         'salon': salon
                                                     }),
-                                                    success: function(x) {
+                                                    success: function (x) {
                                                         alert("horario modificado");
                                                         window.location.reload();
                                                     },
-                                                    error: function(y) {
+                                                    error: function (y) {
                                                         alert("error al modificar el horario");
                                                     }
                                                 });
                                             },
-                                            error: function(y) {
+                                            error: function (y) {
                                                 alert('Este profesor se encuentra ocupado');
                                             }
                                         });
                                     },
-                                    error: function(y) {
+                                    error: function (y) {
                                         alert('Este grupo se encuentra ocupado');
                                     }
                                 });
                             },
-                            error: function(y) {
+                            error: function (y) {
                                 alert('Este salon se encuentra ocupado');
                             }
                         });
 
                     });
                 },
-                error: function(n) {
+                error: function (n) {
                     alert("error al cargar usuarios");
                 }
             });
@@ -425,19 +425,19 @@ $('.table').on('click', '.clickable-row', function(event) {
 
         //click en borrar
         $('.card-header ul').children('li').eq(3).children('a').off();
-        $('.card-header ul').children('li').eq(3).children('a').click(function(e) {
+        $('.card-header ul').children('li').eq(3).children('a').click(function (e) {
             e.preventDefault()
             $(this).tab('show')
             $('.modal').modal();
-            $('.modal button.btn-primary').click(function(params) {
+            $('.modal button.btn-primary').click(function (params) {
                 $.ajax({
                     url: "/api/horarios/" + usrid,
                     type: "DELETE",
-                    success: function(x) {
+                    success: function (x) {
                         alert("horario eliminado");
                         window.location.reload();
                     },
-                    error: function(y) {
+                    error: function (y) {
                         alert("error al eliminar el horario");
                     }
                 });
@@ -446,12 +446,19 @@ $('.table').on('click', '.clickable-row', function(event) {
     }
 });
 
+$('#to-pdf').click(function (e) {
+    var doc = new jsPDF('l','pt','letter',true);
+    doc.autoTable({html: '.table'});
+    
+    doc.save('Horarios.pdf');
+
+});
 
 function searchAll(x) {
     $.ajax({
         url: "/api/horarios",
         type: "GET",
-        success: function(resulta2) {
+        success: function (resulta2) {
             //los pone en la tabla
             $('tbody').empty();
             console.log(resulta2.records);
@@ -515,8 +522,11 @@ function searchAll(x) {
 
             $('.table').DataTable();
 
+
+            $('#to-pdf').css('display', 'none');
+
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("No se encontrarn horarios");
         }
     });
@@ -526,7 +536,7 @@ function searchUser(id) {
     $.ajax({
         url: "/api/usuarios/horario/" + id,
         type: "GET",
-        success: function(resulta2) {
+        success: function (resulta2) {
             //los pone en la tabla
             $('tbody').empty();
             console.log(resulta2.records);
@@ -589,9 +599,12 @@ function searchUser(id) {
 
             $('.table').DataTable();
 
+            $('#to-pdf').css('display', 'block');
+
         },
-        error: function(resp) {
+        error: function (resp) {
             alert("No se encontraron horarios");
         }
     });
 }
+
